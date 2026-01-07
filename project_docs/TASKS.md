@@ -21,7 +21,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 - [x] **3.4 Project Interactions**: Add hover states to project cards.
 
 ## Phase 4: Mobile & Responsiveness
-- [ ] **4.1 Mobile Check**: Verify layout on mobile breakpoints.
+- [x] **4.1 Mobile Check**: Verify layout on mobile breakpoints.
 - [ ] **4.2 Disable Heavy Motion**: Ensure parallax effects are reduced on touch devices (via `prefers-reduced-motion` or screen size check).
 
 ## Phase 5: Deployment Prep
