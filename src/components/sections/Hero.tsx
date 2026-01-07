@@ -1,8 +1,16 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { Profile } from "@/types";
 
 interface HeroProps {
   profile: Profile;
 }
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+};
 
 export default function Hero({ profile }: HeroProps) {
   return (
@@ -10,24 +18,44 @@ export default function Hero({ profile }: HeroProps) {
       <div className="max-w-5xl w-full">
         <div className="space-y-6">
           {/* Name */}
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-foreground">
+          <motion.h1
+            className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-foreground"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             {profile.name}
-          </h1>
+          </motion.h1>
 
           {/* Role */}
-          <p className="font-body text-2xl md:text-3xl lg:text-4xl text-foreground-secondary">
+          <motion.p
+            className="font-body text-2xl md:text-3xl lg:text-4xl text-foreground-secondary"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
             {profile.role}
-          </p>
+          </motion.p>
 
           {/* Bio */}
-          <div className="max-w-2xl">
+          <motion.div
+            className="max-w-2xl"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             <p className="font-body text-lg md:text-xl text-foreground-secondary leading-relaxed">
               {profile.content}
             </p>
-          </div>
+          </motion.div>
 
           {/* Social Links */}
-          <div className="flex gap-6 pt-4">
+          <motion.div
+            className="flex gap-6 pt-4"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ duration: 0.6, delay: 0.7 }}
+          >
             {profile.socials.linkedin && (
               <a
                 href={profile.socials.linkedin}
@@ -66,10 +94,15 @@ export default function Hero({ profile }: HeroProps) {
                 Email
               </a>
             )}
-          </div>
+          </motion.div>
 
           {/* Scroll Indicator */}
-          <div className="pt-12">
+          <motion.div
+            className="pt-12"
+            initial={fadeInUp.initial}
+            animate={fadeInUp.animate}
+            transition={{ duration: 0.6, delay: 0.9 }}
+          >
             <div className="inline-flex flex-col items-center gap-2 text-foreground-muted">
               <span className="font-body text-sm uppercase tracking-wider">Scroll</span>
               <svg
@@ -86,7 +119,7 @@ export default function Hero({ profile }: HeroProps) {
                 />
               </svg>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
