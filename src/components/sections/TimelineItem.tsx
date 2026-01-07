@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { TimelineItem as TimelineItemType } from "@/types";
 
 interface TimelineItemProps {
@@ -17,9 +20,21 @@ export default function TimelineItem({ item }: TimelineItemProps) {
     : formatDate(item.startDate);
 
   return (
-    <div className="relative pl-8 pb-12 border-l-2 border-border">
+    <motion.div
+      className="relative pl-8 pb-12 border-l-2 border-border"
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       {/* Timeline Dot */}
-      <div className="absolute left-0 top-0 -translate-x-[9px] w-4 h-4 rounded-full bg-accent border-4 border-background"></div>
+      <motion.div
+        className="absolute left-0 top-0 -translate-x-[9px] w-4 h-4 rounded-full bg-accent border-4 border-background"
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+      />
 
       <div className="space-y-3">
         {/* Type Badge */}
@@ -59,6 +74,6 @@ export default function TimelineItem({ item }: TimelineItemProps) {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -17,7 +17,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 ## Phase 3: Animation & Polish (The "Wow" Factor)
 - [x] **3.1 Install Framer Motion**: Install library.
 - [x] **3.2 Animate Hero**: Fade-in text and elements on load.
-- [ ] **3.3 Parallax Timeline**: Implement scroll-triggered animations for timeline items (fade-in + slight y-axis movement).
+- [x] **3.3 Parallax Timeline**: Implement scroll-triggered animations for timeline items (fade-in + slight y-axis movement).
 - [ ] **3.4 Project Interactions**: Add hover states to project cards.
 
 ## Phase 4: Mobile & Responsiveness

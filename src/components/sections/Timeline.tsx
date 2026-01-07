@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { TimelineItem as TimelineItemType } from "@/types";
 import TimelineItem from "./TimelineItem";
 
@@ -10,14 +13,20 @@ export default function Timeline({ items }: TimelineProps) {
     <section className="min-h-screen py-20 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
-        <div className="mb-16">
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
             Experience
           </h2>
           <p className="font-body text-lg md:text-xl text-foreground-secondary">
             My professional journey and milestones
           </p>
-        </div>
+        </motion.div>
 
         {/* Timeline Items */}
         <div className="space-y-0">
