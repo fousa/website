@@ -1,45 +1,9 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import type { TimelineItem, Project, Profile } from "@/types";
 
 const contentDirectory = path.join(process.cwd(), "content");
-
-export interface TimelineItem {
-  title: string;
-  company: string;
-  startDate: string;
-  endDate?: string;
-  type: "full-time" | "freelance" | "internship" | "education";
-  logo?: string;
-  location?: string;
-  content: string;
-}
-
-export interface Project {
-  title: string;
-  slug: string;
-  type: "client-work" | "personal" | "open-source";
-  employer?: string;
-  client?: string;
-  description: string;
-  techStack: string[];
-  thumbnail: string;
-  featured?: boolean;
-  liveUrl?: string;
-  repoUrl?: string;
-  content: string;
-}
-
-export interface Profile {
-  name: string;
-  role: string;
-  socials: {
-    linkedin?: string;
-    github?: string;
-    email?: string;
-  };
-  content: string;
-}
 
 /**
  * Read all timeline items from /content/timeline
