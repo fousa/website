@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { Project } from "@/types";
 
 interface ProjectCardProps {
@@ -6,11 +9,26 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="group relative bg-background-secondary border border-border hover:border-border-hover rounded-lg overflow-hidden transition-all duration-medium hover:shadow-lg">
+    <motion.div
+      className="group relative bg-background-secondary border border-border rounded-lg overflow-hidden"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      whileHover={{
+        y: -8,
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.8)",
+        borderColor: "var(--border-hover)",
+      }}
+    >
       {/* Thumbnail */}
       <div className="aspect-video bg-background-tertiary relative overflow-hidden">
         {/* Placeholder for image - will use next/image in production */}
-        <div className="absolute inset-0 flex items-center justify-center text-foreground-muted">
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center text-foreground-muted"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
+        >
           <svg
             className="w-16 h-16"
             fill="none"
@@ -24,13 +42,18 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
-        </div>
+        </motion.div>
         {project.featured && (
-          <div className="absolute top-3 right-3">
+          <motion.div
+            className="absolute top-3 right-3"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          >
             <span className="font-body text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-accent text-background font-semibold">
               Featured
             </span>
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -105,6 +128,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

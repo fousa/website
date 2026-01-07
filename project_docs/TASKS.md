@@ -18,7 +18,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 - [x] **3.1 Install Framer Motion**: Install library.
 - [x] **3.2 Animate Hero**: Fade-in text and elements on load.
 - [x] **3.3 Parallax Timeline**: Implement scroll-triggered animations for timeline items (fade-in + slight y-axis movement).
-- [ ] **3.4 Project Interactions**: Add hover states to project cards.
+- [x] **3.4 Project Interactions**: Add hover states to project cards.
 
 ## Phase 4: Mobile & Responsiveness
 - [ ] **4.1 Mobile Check**: Verify layout on mobile breakpoints.
