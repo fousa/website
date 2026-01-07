@@ -22,7 +22,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 
 ## Phase 4: Mobile & Responsiveness
 - [x] **4.1 Mobile Check**: Verify layout on mobile breakpoints.
-- [ ] **4.2 Disable Heavy Motion**: Ensure parallax effects are reduced on touch devices (via `prefers-reduced-motion` or screen size check).
+- [x] **4.2 Disable Heavy Motion**: Ensure parallax effects are reduced on touch devices (via `prefers-reduced-motion` or screen size check).
 
 ## Phase 5: Deployment Prep
 - [ ] **5.1 Procfile**: Create `Procfile` for Heroku (`web: npm start`).

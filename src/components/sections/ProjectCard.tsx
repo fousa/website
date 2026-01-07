@@ -2,31 +2,64 @@
 
 import { motion } from "framer-motion";
 import type { Project } from "@/types";
+import { useMotionConfig } from "@/lib/use-motion-config";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const { shouldReduceMotion, isMobile } = useMotionConfig();
+
+  // Simplified entrance animation for mobile
+  const entranceAnimation = shouldReduceMotion
+    ? {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        transition: { duration: 0.3 },
+      }
+    : {
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.5 },
+      };
+
+  // Disable hover lift effect on mobile/touch devices
+  const hoverAnimation =
+    !isMobile && !shouldReduceMotion
+      ? {
+          y: -8,
+          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.8)",
+          borderColor: "var(--border-hover)",
+        }
+      : {};
+
+  // Disable featured badge animation on mobile
+  const featuredBadgeAnimation = shouldReduceMotion
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.3 },
+      }
+    : {
+        initial: { scale: 0, rotate: -180 },
+        animate: { scale: 1, rotate: 0 },
+        transition: { delay: 0.2, type: "spring" as const, stiffness: 200 },
+      };
+
   return (
     <motion.div
       className="group relative bg-background-secondary border border-border rounded-lg overflow-hidden"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      {...entranceAnimation}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5 }}
-      whileHover={{
-        y: -8,
-        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.8)",
-        borderColor: "var(--border-hover)",
-      }}
+      whileHover={hoverAnimation}
     >
       {/* Thumbnail */}
       <div className="aspect-video bg-background-tertiary relative overflow-hidden">
         {/* Placeholder for image - will use next/image in production */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center text-foreground-muted"
-          whileHover={{ scale: 1.05 }}
+          whileHover={!isMobile ? { scale: 1.05 } : {}}
           transition={{ duration: 0.3 }}
         >
           <svg
@@ -46,9 +79,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {project.featured && (
           <motion.div
             className="absolute top-3 right-3"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            {...featuredBadgeAnimation}
           >
             <span className="font-body text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-accent text-background font-semibold">
               Featured
