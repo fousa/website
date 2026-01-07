@@ -12,7 +12,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 - [x] **2.1 Global Layout**: Setup fonts (Google Fonts) and base CSS variables.
 - [x] **2.2 Hero Section**: Build a static Hero component with name and subtitle.
 - [x] **2.3 Timeline Component (Basic)**: Render the timeline data as a flat list (without animation first).
-- [ ] **2.4 Project Grid**: Render project cards in a simple responsive grid (CSS Grid).
+- [x] **2.4 Project Grid**: Render project cards in a simple responsive grid (CSS Grid).
 
 ## Phase 3: Animation & Polish (The "Wow" Factor)
 - [ ] **3.1 Install Framer Motion**: Install library.

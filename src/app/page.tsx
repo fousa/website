@@ -1,10 +1,12 @@
-import { getProfile, getTimelineItems } from "@/lib/markdown";
+import { getProfile, getTimelineItems, getProjects } from "@/lib/markdown";
 import Hero from "@/components/sections/Hero";
 import Timeline from "@/components/sections/Timeline";
+import ProjectGrid from "@/components/sections/ProjectGrid";
 
 export default function Home() {
   const profile = getProfile();
   const timelineItems = getTimelineItems();
+  const projects = getProjects();
 
   if (!profile) {
     return (
@@ -18,6 +20,7 @@ export default function Home() {
     <main>
       <Hero profile={profile} />
       <Timeline items={timelineItems} />
+      <ProjectGrid projects={projects} />
     </main>
   );
 }
