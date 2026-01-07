@@ -1,8 +1,20 @@
+import { getProfile } from "@/lib/markdown";
+import Hero from "@/components/sections/Hero";
+
 export default function Home() {
+  const profile = getProfile();
+
+  if (!profile) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-foreground-secondary">Profile not found</p>
+      </main>
+    );
+  }
+
   return (
-    <main className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold">Welcome to Fousa</h1>
-      <p className="mt-4 text-lg">Portfolio under construction...</p>
+    <main>
+      <Hero profile={profile} />
     </main>
   );
 }
