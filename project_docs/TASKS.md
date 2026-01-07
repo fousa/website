@@ -6,7 +6,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 - [x] **1.1 Init Project**: Setup Next.js (App Router, TS, Tailwind). Remove default boilerplate code.
 - [x] **1.2 Setup Content Engine**: Install `gray-matter`. Create `src/lib/markdown.ts` to read timeline and project items.
 - [x] **1.3 Type Definitions**: Define `TimelineItem` and `Project` interfaces in `src/types`.
-- [ ] **1.4 Seed Data**: Create dummy markdown files in `/content` for testing.
+- [x] **1.4 Seed Data**: Create dummy markdown files in `/content` for testing.
 
 ## Phase 2: Core Components
 - [ ] **2.1 Global Layout**: Setup fonts (Google Fonts) and base CSS variables.
