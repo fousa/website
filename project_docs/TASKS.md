@@ -15,7 +15,7 @@ Break this project into sequential steps. Execute these one by one and verify fu
 - [x] **2.4 Project Grid**: Render project cards in a simple responsive grid (CSS Grid).
 
 ## Phase 3: Animation & Polish (The "Wow" Factor)
-- [ ] **3.1 Install Framer Motion**: Install library.
+- [x] **3.1 Install Framer Motion**: Install library.
 - [ ] **3.2 Animate Hero**: Fade-in text and elements on load.
 - [ ] **3.3 Parallax Timeline**: Implement scroll-triggered animations for timeline items (fade-in + slight y-axis movement).
 - [ ] **3.4 Project Interactions**: Add hover states to project cards.
