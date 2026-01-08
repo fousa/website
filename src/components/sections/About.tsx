@@ -48,7 +48,7 @@ export default function About({ profile }: AboutProps) {
             animate={fadeInUp.animate}
             transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.5 }}
           >
-            <p className="font-body text-lg md:text-xl text-foreground-secondary leading-relaxed text-center">
+            <p className="font-body text-lg md:text-xl text-foreground-secondary leading-relaxed text-center whitespace-pre-line">
               {profile.content}
             </p>
           </motion.div>
