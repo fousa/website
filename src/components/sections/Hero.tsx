@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Linkedin, Github, Instagram, Mail, FileText } from "lucide-react";
-import Tooltip from "@/components/ui/Tooltip";
+import ExpandingButton from "@/components/ui/ExpandingButton";
 import type { Profile } from "@/types";
 
 interface HeroProps {
@@ -60,83 +60,49 @@ export default function Hero({ profile }: HeroProps) {
 
           {/* Social Links */}
           <motion.div
-            className="flex gap-6 pt-4"
+            className="flex gap-4 pt-4 flex-wrap"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             {profile.socials.linkedin && (
-              <Tooltip content="LinkedIn">
-                <motion.a
-                  href={profile.socials.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={24} />
-                </motion.a>
-              </Tooltip>
+              <ExpandingButton
+                icon={<Linkedin size={24} />}
+                label="LinkedIn"
+                href={profile.socials.linkedin}
+                external
+              />
             )}
             {profile.socials.github && (
-              <Tooltip content="GitHub">
-                <motion.a
-                  href={profile.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="GitHub"
-                >
-                  <Github size={24} />
-                </motion.a>
-              </Tooltip>
+              <ExpandingButton
+                icon={<Github size={24} />}
+                label="GitHub"
+                href={profile.socials.github}
+                external
+              />
             )}
             {profile.socials.instagram && (
-              <Tooltip content="Instagram">
-                <motion.a
-                  href={profile.socials.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Instagram"
-                >
-                  <Instagram size={24} />
-                </motion.a>
-              </Tooltip>
+              <ExpandingButton
+                icon={<Instagram size={24} />}
+                label="Instagram"
+                href={profile.socials.instagram}
+                external
+              />
             )}
             {profile.socials.email && (
-              <Tooltip content="Email">
-                <motion.a
-                  href={`mailto:${profile.socials.email}`}
-                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Email"
-                >
-                  <Mail size={24} />
-                </motion.a>
-              </Tooltip>
+              <ExpandingButton
+                icon={<Mail size={24} />}
+                label="Email"
+                href={`mailto:${profile.socials.email}`}
+              />
             )}
             {profile.resume && (
-              <Tooltip content="Download CV">
-                <motion.a
-                  href={profile.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Download CV"
-                >
-                  <FileText size={24} />
-                </motion.a>
-              </Tooltip>
+              <ExpandingButton
+                icon={<FileText size={24} />}
+                label="Download CV"
+                href={profile.resume}
+                external
+              />
             )}
           </motion.div>
 
