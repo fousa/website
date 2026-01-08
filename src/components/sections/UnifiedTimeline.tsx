@@ -37,10 +37,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           className="text-center mb-16"
         >
           <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-            Timeline
+            The Story So Far
           </h2>
           <p className="font-body text-lg md:text-xl text-foreground-secondary max-w-2xl mx-auto">
-            A chronological journey through my professional experience and projects
+            Apps, adventures, and everything in between
           </p>
         </motion.div>
 

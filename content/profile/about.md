@@ -1,6 +1,6 @@
 ---
 name: Jelle Vandebeeck
-role: Senior Full-Stack Developer
+role: I make iOS apps and Rails backends
 socials:
   linkedin: https://linkedin.com/in/fousa
   github: https://github.com/fousa
@@ -9,8 +9,6 @@ socials:
 resume: /resume.pdf
 ---
 
-I'm a passionate full-stack developer with 8+ years of experience building modern web applications. I specialize in React, Next.js, TypeScript, and Ruby on Rails.
+I build iOS applications and Ruby on Rails backends for clients and myself. I work on projects ranging from mobile apps to web platforms, handling everything from database design to pixel-perfect interfaces.
 
-My focus is on creating clean, performant, and user-friendly applications that solve real business problems. I've worked with startups, enterprises, and everything in between.
-
-When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.
+When I'm not writing code, I'm flying gliders. Both require reading the conditions carefully—though one has better views and fewer merge conflicts.
