@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Linkedin, Github, Instagram, Mail } from "lucide-react";
+import { Linkedin, Github, Instagram, Mail, Download } from "lucide-react";
 import type { Profile } from "@/types";
 
 interface HeroProps {
@@ -57,12 +57,33 @@ export default function Hero({ profile }: HeroProps) {
             </p>
           </motion.div>
 
+          {/* CV Download Button */}
+          {profile.resume && (
+            <motion.div
+              initial={fadeInUp.initial}
+              animate={fadeInUp.animate}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <motion.a
+                href={profile.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-body font-medium rounded-lg hover:bg-accent/90 transition-colors duration-fast"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download size={20} />
+                Download CV
+              </motion.a>
+            </motion.div>
+          )}
+
           {/* Social Links */}
           <motion.div
             className="flex gap-6 pt-4"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.7 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
           >
             {profile.socials.linkedin && (
               <motion.a
@@ -121,7 +142,7 @@ export default function Hero({ profile }: HeroProps) {
             className="pt-12"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.9 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
           >
             <div className="inline-flex flex-col items-center gap-2 text-foreground-muted">
               <span className="font-body text-sm uppercase tracking-wider">Scroll</span>

@@ -34,4 +34,5 @@ export interface Profile {
     instagram?: string;
   };
   content: string;
+  resume?: string;
 }

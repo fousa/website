@@ -6,6 +6,7 @@ socials:
   github: https://github.com/fousa
   instagram: https://instagram.com/fousa
   email: jelle@fousa.be
+resume: /resume.pdf
 ---
 
 I'm a passionate full-stack developer with 8+ years of experience building modern web applications. I specialize in React, Next.js, TypeScript, and Ruby on Rails.
