@@ -130,3 +130,13 @@ button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
+
+/* Fade in animation for timeline expanded content */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

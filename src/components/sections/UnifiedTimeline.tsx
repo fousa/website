@@ -50,11 +50,11 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 z-0" />
 
           {/* Mobile: Simple vertical list */}
-          <div className="lg:hidden space-y-6">
+          <div className="lg:hidden">
             {items.map((item, index) => {
               const itemYear = getYear(item.startDate);
               return (
-                <div key={`mobile-${item.itemType}-${index}`} className="relative">
+                <div key={`mobile-${item.itemType}-${index}`} className="mb-6">
                   {/* Year Label - Show once per year on mobile */}
                   {(index === 0 || itemYear !== getYear(items[index - 1].startDate)) && (
                     <motion.div
@@ -62,7 +62,7 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.3 }}
-                      className="mb-4 inline-flex px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg"
+                      className="mb-4 inline-flex px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg pointer-events-none"
                     >
                       {itemYear}
                     </motion.div>
@@ -84,10 +84,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                   key={`desktop-${item.itemType}-${index}`}
                   className="relative mb-12"
                 >
-                  {/* Year Label - Show once per year */}
+                  {/* Year Label - Show once per year - fixed position */}
                   {(index === 0 || itemYear !== getYear(items[index - 1].startDate)) && (
                     <div
-                      className="absolute left-1/2 -translate-x-1/2"
+                      className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
                       style={{
                         top: "-2.5rem",
                         zIndex: 20,
@@ -111,6 +111,7 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                       display: "grid",
                       gridTemplateColumns: "1fr 10% 1fr",
                       gap: 0,
+                      position: 'relative',
                     }}
                   >
                     {/* Left Column - Projects */}

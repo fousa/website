@@ -45,11 +45,22 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: index * 0.1 }}
-      className="group relative"
-      style={{ zIndex: isExpanded ? 50 : 1 }}
+      className="group"
+      style={{
+        position: 'relative',
+        zIndex: isExpanded ? 50 : 1,
+      }}
     >
-      <motion.div
-        className="relative bg-background-secondary border border-border rounded-lg cursor-pointer transition-colors hover:border-accent"
+      <div
+        className={`relative bg-background-secondary border cursor-pointer overflow-visible ${
+          isExpanded
+            ? 'border-accent rounded-t-lg'
+            : 'border-border rounded-lg'
+        }`}
+        style={{
+          borderBottomColor: isExpanded ? 'transparent' : undefined,
+          willChange: 'border-color',
+        }}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
         onFocus={() => setIsExpanded(true)}
@@ -57,10 +68,6 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
         tabIndex={0}
         role="article"
         aria-label={`${item.title} - ${subtitle}`}
-        animate={{
-          scale: prefersReducedMotion ? 1 : (isExpanded ? 1.03 : 1),
-        }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
       >
         <div className="p-6">
           {/* Header - Always Visible */}
@@ -85,18 +92,17 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
               {isExperience ? item.type.replace("-", " ") : "project"}
             </div>
           </div>
+        </div>
 
-          {/* Expandable Content */}
-          <motion.div
-            initial={false}
-            animate={{
-              height: isExpanded ? "auto" : 0,
-              opacity: isExpanded ? 1 : 0,
+        {/* Expandable Content - Absolute positioned as sibling */}
+        {isExpanded && (
+          <div
+            className="absolute left-[-1px] right-[-1px] top-full bg-background-secondary border-l border-r border-b border-accent rounded-b-lg shadow-xl z-50"
+            style={{
+              animation: prefersReducedMotion ? 'none' : 'fadeIn 0.15s ease-out',
             }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
           >
-            <div className="pt-4">
+            <div className="px-6 pb-6 pt-4">
               {/* Meta Info */}
               <div className="flex flex-wrap gap-4 mb-4 text-sm text-foreground-muted border-t border-b border-border py-3">
                 <div className="flex items-center gap-1.5">
@@ -187,10 +193,10 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
                   )}
                 </div>
               )}
+              </div>
             </div>
-          </motion.div>
-        </div>
-      </motion.div>
+          )}
+      </div>
     </motion.div>
   );
 }
