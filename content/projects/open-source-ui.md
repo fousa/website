@@ -7,6 +7,7 @@ techStack: [React, TypeScript, Storybook, Tailwind CSS]
 thumbnail: /images/projects/ui-lib.png
 featured: false
 repoUrl: https://github.com/fousa/react-ui-lib
+startDate: 2022-05-01
 ---
 
 An open-source React component library focused on accessibility and developer experience. Includes 30+ components with full TypeScript support, comprehensive documentation, and interactive Storybook examples.

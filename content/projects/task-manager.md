@@ -8,6 +8,8 @@ thumbnail: /images/projects/taskflow.png
 featured: true
 liveUrl: https://taskflow-demo.com
 repoUrl: https://github.com/fousa/taskflow
+startDate: 2021-09-01
+endDate: Present
 ---
 
 A real-time collaborative task management application built as a personal project to explore WebSocket technology and real-time data synchronization.

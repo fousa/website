@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import type { TimelineItem, Project, Profile } from "@/types";
+import type { TimelineItem, Project, Profile, UnifiedTimelineItem } from "@/types";
 
 const contentDirectory = path.join(process.cwd(), "content");
 
@@ -86,4 +86,30 @@ export function getProfile(): Profile | null {
     ...data,
     content,
   } as Profile;
+}
+
+/**
+ * Get unified timeline merging experience and projects
+ * Sorted by startDate (newest first)
+ */
+export function getUnifiedTimeline(): UnifiedTimelineItem[] {
+  const timelineItems = getTimelineItems();
+  const projects = getProjects();
+
+  const experienceItems: UnifiedTimelineItem[] = timelineItems.map((item) => ({
+    ...item,
+    itemType: "experience" as const,
+  }));
+
+  const projectItems: UnifiedTimelineItem[] = projects.map((item) => ({
+    ...item,
+    itemType: "project" as const,
+  }));
+
+  const unified = [...experienceItems, ...projectItems];
+
+  // Sort by startDate (newest first)
+  return unified.sort((a, b) => {
+    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+  });
 }

@@ -22,6 +22,8 @@ export interface Project {
   liveUrl?: string;
   repoUrl?: string;
   content: string;
+  startDate: string;
+  endDate?: string;
 }
 
 export interface Profile {
@@ -36,3 +38,7 @@ export interface Profile {
   content: string;
   resume?: string;
 }
+
+export type UnifiedTimelineItem =
+  | (TimelineItem & { itemType: "experience" })
+  | (Project & { itemType: "project" });

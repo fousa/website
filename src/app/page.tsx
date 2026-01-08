@@ -1,13 +1,11 @@
-import { getProfile, getTimelineItems, getProjects } from "@/lib/markdown";
+import { getProfile, getUnifiedTimeline } from "@/lib/markdown";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
-import Timeline from "@/components/sections/Timeline";
-import ProjectGrid from "@/components/sections/ProjectGrid";
+import UnifiedTimeline from "@/components/sections/UnifiedTimeline";
 
 export default function Home() {
   const profile = getProfile();
-  const timelineItems = getTimelineItems();
-  const projects = getProjects();
+  const timelineItems = getUnifiedTimeline();
 
   if (!profile) {
     return (
@@ -21,8 +19,7 @@ export default function Home() {
     <main className="snap-y snap-mandatory overflow-y-auto h-screen overscroll-none">
       <Hero profile={profile} />
       <About profile={profile} />
-      <Timeline items={timelineItems} />
-      <ProjectGrid projects={projects} />
+      <UnifiedTimeline items={timelineItems} />
     </main>
   );
 }
