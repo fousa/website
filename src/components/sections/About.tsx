@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Linkedin, Github, Instagram, Mail, FileText } from "lucide-react";
 import ExpandingButton from "@/components/ui/ExpandingButton";
 import type { Profile } from "@/types";
@@ -9,12 +9,14 @@ interface AboutProps {
   profile: Profile;
 }
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
 export default function About({ profile }: AboutProps) {
+  const prefersReducedMotion = useReducedMotion();
+
+  const fadeInUp = {
+    initial: prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+  };
+
   return (
     <section className="h-screen flex items-center justify-center px-6 md:px-12 snap-start snap-always relative">
       <div className="max-w-5xl w-full">
@@ -24,7 +26,7 @@ export default function About({ profile }: AboutProps) {
             className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-foreground text-center"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.1 }}
           >
             {profile.name}
           </motion.h1>
@@ -34,7 +36,7 @@ export default function About({ profile }: AboutProps) {
             className="font-body text-2xl md:text-3xl lg:text-4xl text-foreground-secondary text-center"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.3 }}
           >
             {profile.role}
           </motion.p>
@@ -44,7 +46,7 @@ export default function About({ profile }: AboutProps) {
             className="max-w-2xl"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.5 }}
           >
             <p className="font-body text-lg md:text-xl text-foreground-secondary leading-relaxed text-center">
               {profile.content}
@@ -56,7 +58,7 @@ export default function About({ profile }: AboutProps) {
             className="flex gap-4 pt-4 flex-wrap justify-center"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.7 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.7 }}
           >
             {profile.socials.linkedin && (
               <ExpandingButton
@@ -104,9 +106,9 @@ export default function About({ profile }: AboutProps) {
       {/* Scroll Indicator */}
       <motion.div
         className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0, y: -20 }}
+        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.9 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.9 }}
       >
         <div className="inline-flex flex-col items-center gap-2 text-foreground-muted">
           <span className="font-body text-sm uppercase tracking-wider">Scroll</span>

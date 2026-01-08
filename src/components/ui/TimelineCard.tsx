@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { Calendar, MapPin, ExternalLink, Github } from "lucide-react";
 import type { UnifiedTimelineItem } from "@/types";
@@ -12,6 +12,7 @@ interface TimelineCardProps {
 
 export default function TimelineCard({ item, index }: TimelineCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const isExperience = item.itemType === "experience";
   const isProject = item.itemType === "project";
@@ -40,10 +41,10 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: index * 0.1 }}
       className="group relative"
       style={{ zIndex: isExpanded ? 50 : 1 }}
     >
@@ -51,10 +52,15 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
         className="relative bg-background-secondary border border-border rounded-lg cursor-pointer transition-colors hover:border-accent"
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
+        onFocus={() => setIsExpanded(true)}
+        onBlur={() => setIsExpanded(false)}
+        tabIndex={0}
+        role="article"
+        aria-label={`${item.title} - ${subtitle}`}
         animate={{
-          scale: isExpanded ? 1.03 : 1,
+          scale: prefersReducedMotion ? 1 : (isExpanded ? 1.03 : 1),
         }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
       >
         <div className="p-6">
           {/* Header - Always Visible */}
@@ -160,6 +166,7 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
                       onClick={(e) => e.stopPropagation()}
+                      aria-label={`Visit live site for ${item.title}`}
                     >
                       <ExternalLink size={16} />
                       <span className="text-sm">Live Site</span>
@@ -172,6 +179,7 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
                       onClick={(e) => e.stopPropagation()}
+                      aria-label={`View source code for ${item.title}`}
                     >
                       <Github size={16} />
                       <span className="text-sm">Source Code</span>

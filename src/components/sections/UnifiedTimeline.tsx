@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import TimelineCard from "@/components/ui/TimelineCard";
 import type { UnifiedTimelineItem } from "@/types";
 
@@ -9,6 +9,8 @@ interface UnifiedTimelineProps {
 }
 
 export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   if (!items || items.length === 0) {
     return (
       <section className="min-h-screen flex items-center justify-center px-6 snap-start snap-always">
@@ -28,10 +30,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
           className="text-center mb-16"
         >
           <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
@@ -56,10 +58,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                   {/* Year Label - Show once per year on mobile */}
                   {(index === 0 || itemYear !== getYear(items[index - 1].startDate)) && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.3 }}
+                      transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.3 }}
                       className="mb-4 inline-flex px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg"
                     >
                       {itemYear}
@@ -92,10 +94,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                       }}
                     >
                       <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.3 }}
                         className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg"
                       >
                         {itemYear}
@@ -124,10 +126,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                     <div className="relative">
                       {/* Connecting Line */}
                       <motion.div
-                        initial={{ scaleX: 0 }}
+                        initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}
                         whileInView={{ scaleX: 1 }}
                         viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : index * 0.1 }}
                         className="absolute h-0.5 bg-border"
                         style={{
                           top: "2rem",
@@ -140,10 +142,10 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
                       {/* Timeline Dot - Only for projects */}
                       {isProject && (
                         <motion.div
-                          initial={{ scale: 0 }}
+                          initial={prefersReducedMotion ? { scale: 1 } : { scale: 0 }}
                           whileInView={{ scale: 1 }}
                           viewport={{ once: true, margin: "-100px" }}
-                          transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
+                          transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : index * 0.1 + 0.2 }}
                           className="absolute w-4 h-4 rounded-full border-4 bg-background-tertiary border-background"
                           style={{
                             top: "2rem",

@@ -116,3 +116,17 @@ h1, h2, h3, h4, h5, h6 {
     filter: brightness(0) invert(1);
   }
 }
+
+/* Keyboard Focus Indicators for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Specific focus styles for buttons and links */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}

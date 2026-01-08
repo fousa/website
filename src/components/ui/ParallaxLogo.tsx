@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -14,23 +14,33 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
   const [isMounted, setIsMounted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Spring physics for smooth animation
+  // Spring physics for smooth animation - disabled if user prefers reduced motion
   const springConfig = { damping: 20, stiffness: 150 };
-  const x = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+  const x = useSpring(
+    useTransform(mouseX, [-0.5, 0.5], prefersReducedMotion ? [0, 0] : [-15, 15]),
+    springConfig
+  );
 
-  // 3D rotation effect - only when hovering (no vertical movement)
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
+  // 3D rotation effect - only when hovering (no vertical movement) - disabled if user prefers reduced motion
+  const rotateX = useSpring(
+    useTransform(mouseY, [-0.5, 0.5], prefersReducedMotion ? [0, 0] : [8, -8]),
+    springConfig
+  );
+  const rotateY = useSpring(
+    useTransform(mouseX, [-0.5, 0.5], prefersReducedMotion ? [0, 0] : [-8, 8]),
+    springConfig
+  );
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isHovering) return;
+    if (!isHovering || prefersReducedMotion) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) - 0.5;
@@ -115,7 +125,7 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
             className="hidden md:flex flex-col items-center whitespace-nowrap"
             style={{ overflow: isExpanded ? "visible" : "hidden" }}
           >
-            <motion.h2
+            <motion.div
               animate={{
                 opacity: isExpanded ? 1 : 0,
               }}
@@ -125,9 +135,11 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
                 ease: "easeOut"
               }}
               className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground"
+              role="presentation"
+              aria-hidden="true"
             >
               {name}
-            </motion.h2>
+            </motion.div>
             <motion.p
               animate={{
                 opacity: isExpanded ? 1 : 0,
