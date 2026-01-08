@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Linkedin, Github, Instagram, Mail, Download } from "lucide-react";
+import { Linkedin, Github, Instagram, Mail, FileText } from "lucide-react";
+import Tooltip from "@/components/ui/Tooltip";
 import type { Profile } from "@/types";
 
 interface HeroProps {
@@ -57,83 +58,85 @@ export default function Hero({ profile }: HeroProps) {
             </p>
           </motion.div>
 
-          {/* CV Download Button */}
-          {profile.resume && (
-            <motion.div
-              initial={fadeInUp.initial}
-              animate={fadeInUp.animate}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <motion.a
-                href={profile.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-white font-body font-medium rounded-lg hover:bg-accent/90 transition-colors duration-fast"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Download size={20} />
-                Download CV
-              </motion.a>
-            </motion.div>
-          )}
-
           {/* Social Links */}
           <motion.div
             className="flex gap-6 pt-4"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
           >
             {profile.socials.linkedin && (
-              <motion.a
-                href={profile.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={24} />
-              </motion.a>
+              <Tooltip content="LinkedIn">
+                <motion.a
+                  href={profile.socials.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin size={24} />
+                </motion.a>
+              </Tooltip>
             )}
             {profile.socials.github && (
-              <motion.a
-                href={profile.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="GitHub"
-              >
-                <Github size={24} />
-              </motion.a>
+              <Tooltip content="GitHub">
+                <motion.a
+                  href={profile.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="GitHub"
+                >
+                  <Github size={24} />
+                </motion.a>
+              </Tooltip>
             )}
             {profile.socials.instagram && (
-              <motion.a
-                href={profile.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Instagram"
-              >
-                <Instagram size={24} />
-              </motion.a>
+              <Tooltip content="Instagram">
+                <motion.a
+                  href={profile.socials.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="Instagram"
+                >
+                  <Instagram size={24} />
+                </motion.a>
+              </Tooltip>
             )}
             {profile.socials.email && (
-              <motion.a
-                href={`mailto:${profile.socials.email}`}
-                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Email"
-              >
-                <Mail size={24} />
-              </motion.a>
+              <Tooltip content="Email">
+                <motion.a
+                  href={`mailto:${profile.socials.email}`}
+                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="Email"
+                >
+                  <Mail size={24} />
+                </motion.a>
+              </Tooltip>
+            )}
+            {profile.resume && (
+              <Tooltip content="Download CV">
+                <motion.a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="Download CV"
+                >
+                  <FileText size={24} />
+                </motion.a>
+              </Tooltip>
             )}
           </motion.div>
 
@@ -142,7 +145,7 @@ export default function Hero({ profile }: HeroProps) {
             className="pt-12"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
-            transition={{ duration: 0.6, delay: 1.0 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
           >
             <div className="inline-flex flex-col items-center gap-2 text-foreground-muted">
               <span className="font-body text-sm uppercase tracking-wider">Scroll</span>
