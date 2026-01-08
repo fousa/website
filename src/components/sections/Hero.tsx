@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Linkedin, Github, Instagram, Mail } from "lucide-react";
 import type { Profile } from "@/types";
 
 interface HeroProps {
@@ -10,6 +11,13 @@ interface HeroProps {
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
+};
+
+const socialIcons = {
+  linkedin: Linkedin,
+  github: Github,
+  instagram: Instagram,
+  email: Mail,
 };
 
 export default function Hero({ profile }: HeroProps) {
@@ -57,42 +65,54 @@ export default function Hero({ profile }: HeroProps) {
             transition={{ duration: 0.6, delay: 0.7 }}
           >
             {profile.socials.linkedin && (
-              <a
+              <motion.a
                 href={profile.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-body text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="LinkedIn"
               >
-                LinkedIn
-              </a>
+                <Linkedin size={24} />
+              </motion.a>
             )}
             {profile.socials.github && (
-              <a
+              <motion.a
                 href={profile.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-body text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="GitHub"
               >
-                GitHub
-              </a>
+                <Github size={24} />
+              </motion.a>
             )}
             {profile.socials.instagram && (
-              <a
+              <motion.a
                 href={profile.socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-body text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Instagram"
               >
-                Instagram
-              </a>
+                <Instagram size={24} />
+              </motion.a>
             )}
             {profile.socials.email && (
-              <a
+              <motion.a
                 href={`mailto:${profile.socials.email}`}
-                className="font-body text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                className="text-foreground-secondary hover:text-accent transition-colors duration-fast"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Email"
               >
-                Email
-              </a>
+                <Mail size={24} />
+              </motion.a>
             )}
           </motion.div>
 
