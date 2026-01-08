@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 import { Calendar, MapPin, ExternalLink, Github } from "lucide-react";
 import type { UnifiedTimelineItem } from "@/types";
 
@@ -16,6 +17,7 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
 
   const isExperience = item.itemType === "experience";
   const isProject = item.itemType === "project";
+  const isBirth = isExperience && item.type === "birth";
 
   // Format date range
   const formatDate = (date: string) => {
@@ -38,6 +40,31 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
     : isProject
     ? item.type.replace("-", " ")
     : "";
+
+  // Special render for birth item - just the image
+  if (isBirth && isExperience && item.image) {
+    return (
+      <motion.div
+        initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.8, delay: 0.2 }}
+        className="flex justify-center"
+        role="article"
+        aria-label={`Born ${dateRange}`}
+      >
+        <div className="relative w-32 h-32 md:w-40 md:h-40">
+          <Image
+            src={item.image}
+            alt={`Born ${dateRange}`}
+            width={160}
+            height={160}
+            className="rounded-full object-cover border-4 border-accent shadow-2xl w-32 h-32 md:w-40 md:h-40"
+          />
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div

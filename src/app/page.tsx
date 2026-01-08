@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   const profile = getProfile();
-  const timelineItems = getUnifiedTimeline();
+  const timeline = getUnifiedTimeline();
 
   if (!profile) {
     return (
@@ -20,7 +20,11 @@ export default function Home() {
     <main className="snap-y snap-mandatory overflow-y-auto h-screen overscroll-none">
       <Hero profile={profile} />
       <About profile={profile} />
-      <UnifiedTimeline items={timelineItems} />
+      <UnifiedTimeline
+        workItems={timeline.work}
+        educationItems={timeline.education}
+        birthItem={timeline.birth}
+      />
       <Footer />
     </main>
   );

@@ -90,9 +90,13 @@ export function getProfile(): Profile | null {
 
 /**
  * Get unified timeline merging experience and projects
- * Sorted by startDate (newest first)
+ * Returns object with work/projects, education, and birth items separated
  */
-export function getUnifiedTimeline(): UnifiedTimelineItem[] {
+export function getUnifiedTimeline(): {
+  work: UnifiedTimelineItem[];
+  education: UnifiedTimelineItem[];
+  birth: UnifiedTimelineItem | null;
+} {
   const timelineItems = getTimelineItems();
   const projects = getProjects();
 
@@ -106,10 +110,29 @@ export function getUnifiedTimeline(): UnifiedTimelineItem[] {
     itemType: "project" as const,
   }));
 
-  const unified = [...experienceItems, ...projectItems];
+  // Separate birth, education, and work items
+  const birthItem = experienceItems.find((item) => item.type === "birth") || null;
+  const educationItems = experienceItems.filter(
+    (item) => item.type === "education" || item.type === "internship"
+  );
+  const workItems = experienceItems.filter(
+    (item) => item.type !== "birth" && item.type !== "education" && item.type !== "internship"
+  );
+
+  const workAndProjects = [...workItems, ...projectItems];
 
   // Sort by startDate (newest first)
-  return unified.sort((a, b) => {
+  const sortedWork = workAndProjects.sort((a, b) => {
     return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
   });
+
+  const sortedEducation = educationItems.sort((a, b) => {
+    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+  });
+
+  return {
+    work: sortedWork,
+    education: sortedEducation,
+    birth: birthItem,
+  };
 }
