@@ -62,6 +62,7 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
           width={size}
           height={size}
           priority
+          className="logo-dark-mode"
         />
       </div>
     );
@@ -95,7 +96,7 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
             width={size}
             height={size}
             priority
-            className="drop-shadow-2xl brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-500 w-full h-full"
+            className="drop-shadow-2xl w-full h-full logo-dark-mode"
           />
         </div>
 
@@ -111,7 +112,7 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
               width: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
               opacity: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
             }}
-            className="hidden md:flex flex-col whitespace-nowrap"
+            className="hidden md:flex flex-col items-center whitespace-nowrap"
             style={{ overflow: isExpanded ? "visible" : "hidden" }}
           >
             <motion.h2
