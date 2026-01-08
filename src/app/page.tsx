@@ -2,6 +2,7 @@ import { getProfile, getUnifiedTimeline } from "@/lib/markdown";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import UnifiedTimeline from "@/components/sections/UnifiedTimeline";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   const profile = getProfile();
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero profile={profile} />
       <About profile={profile} />
       <UnifiedTimeline items={timelineItems} />
+      <Footer />
     </main>
   );
 }

@@ -24,7 +24,7 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
   };
 
   return (
-    <section className="min-h-screen py-20 px-6 md:px-12 snap-start snap-always">
+    <section className="min-h-screen pt-20 pb-8 px-6 md:px-12 snap-start">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -170,8 +170,6 @@ export default function UnifiedTimeline({ items }: UnifiedTimelineProps) {
           </div>
         </div>
 
-        {/* Bottom Spacing */}
-        <div className="h-20" />
       </div>
     </section>
   );
