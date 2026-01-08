@@ -10,7 +10,7 @@ interface ProjectGridProps {
 
 export default function ProjectGrid({ projects }: ProjectGridProps) {
   return (
-    <section className="min-h-screen py-20 px-6 md:px-12 bg-background-secondary">
+    <section className="min-h-screen py-20 px-6 md:px-12 bg-background-secondary snap-start snap-always">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div

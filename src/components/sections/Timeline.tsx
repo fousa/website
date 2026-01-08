@@ -10,7 +10,7 @@ interface TimelineProps {
 
 export default function Timeline({ items }: TimelineProps) {
   return (
-    <section className="min-h-screen py-20 px-6 md:px-12">
+    <section className="min-h-screen py-20 px-6 md:px-12 snap-start snap-always">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <motion.div

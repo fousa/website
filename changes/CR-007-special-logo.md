@@ -21,6 +21,10 @@ Integrate the specific SVG logo (`https://www.fousa.be/images/fousa.svg`) and ap
 - [x] The logo is visible in the Hero (or Header).
 - [x] Moving the mouse causes the logo to move/tilt (parallax effect).
 - [x] Animation is smooth and performant (will-change: transform).
+- [x] Hero shows ONLY the logo (centered, full screen like a scroll indicator).
+- [x] Logo is white by default, turns orange on hover.
+- [x] Scrolling snaps directly to the about/profile section.
+- [x] Profile content (name, role, bio, social links) is in a separate section below hero.
 
 ## Risks / Attention points
 - Performance: Mouse move listeners can be heavy. Use `requestAnimationFrame` or recognized libraries (Framer Motion handles this well).
@@ -55,3 +59,26 @@ Integrate the specific SVG logo (`https://www.fousa.be/images/fousa.svg`) and ap
   - **Goal**: Maintain records.
   - **Deliverable**: Updated checklist.
   - **Done when**: All tasks are marked as done.
+- [x] **Refactor Hero to Logo Only** <!-- id: 706 -->
+  - **Goal**: Create dramatic full-screen logo hero.
+  - **Deliverable**: Hero section shows only centered logo, profile content moved to separate About section.
+  - **Done when**: Hero is clean with just the logo centered.
+  - **Likely Files**: `src/components/sections/Hero.tsx`, new `src/components/sections/About.tsx`
+- [x] **Implement Snap Scrolling** <!-- id: 707 -->
+  - **Goal**: Smooth snap scroll from hero to about.
+  - **Deliverable**: CSS scroll-snap or smooth scroll behavior.
+  - **Done when**: Scrolling jumps directly to about section.
+  - **Likely Files**: `src/app/globals.css`, layout components
+- [x] **Style Logo White with Orange Hover** <!-- id: 708 -->
+  - **Goal**: Update logo colors for better contrast.
+  - **Deliverable**: Logo white by default, orange on hover.
+  - **Done when**: Hover effect works smoothly.
+  - **Likely Files**: `src/components/ui/ParallaxLogo.tsx`
+- [x] **Run tests** <!-- id: 709 -->
+  - **Goal**: Verify refactored layout.
+  - **Deliverable**: `npm run lint` / build success.
+  - **Done when**: No errors.
+- [x] **Update docs** <!-- id: 710 -->
+  - **Goal**: Record new layout.
+  - **Deliverable**: Updated checklist.
+  - **Done when**: All new tasks are marked as done.

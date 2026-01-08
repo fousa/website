@@ -73,3 +73,10 @@ h1, h2, h3, h4, h5, h6 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Improve scroll snap on iOS/Safari */
+@supports (-webkit-touch-callout: none) {
+  .snap-y {
+    -webkit-overflow-scrolling: touch;
+  }
+}
