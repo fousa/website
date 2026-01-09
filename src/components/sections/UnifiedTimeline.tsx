@@ -46,7 +46,7 @@ export default function UnifiedTimeline({
 
     if (isMobile) {
       return (
-        <div key={`mobile-${item.itemType}-${index}`} className="mb-6">
+        <div key={`mobile-${item.itemType}-${index}`} className="mb-3">
           <TimelineCard item={item} index={index} />
           {isLastItemOfYear && (
             <motion.div
@@ -61,7 +61,7 @@ export default function UnifiedTimeline({
                 duration: prefersReducedMotion ? 0 : 0.6,
                 delay: prefersReducedMotion ? 0 : 0.3,
               }}
-              className="mt-6 flex justify-center"
+              className="mt-3 flex justify-center"
             >
               <div className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg">
                 {yearLabel}
@@ -74,7 +74,7 @@ export default function UnifiedTimeline({
 
     // Desktop
     return (
-      <div key={`desktop-${item.itemType}-${index}`} className="relative mb-12">
+      <div key={`desktop-${item.itemType}-${index}`} className="relative mb-6">
         <div
           style={{
             display: "grid",
@@ -120,7 +120,7 @@ export default function UnifiedTimeline({
         </div>
 
         {isLastItemOfYear && (
-          <div className="flex justify-center mt-8 relative z-20">
+          <div className="flex justify-center mt-4 relative z-20">
             <motion.div
               initial={
                 prefersReducedMotion
@@ -183,7 +183,7 @@ export default function UnifiedTimeline({
                   const itemYear = getYear(item.startDate);
                   const isLastItemOfYear = index === educationItems.length - 1 || itemYear !== getYear(educationItems[index + 1].startDate);
                   return (
-                    <div key={`mobile-education-${index}`} className="mb-4">
+                    <div key={`mobile-education-${index}`} className="mb-2">
                       <div className="scale-95 origin-left">
                         <TimelineCard item={item} index={index} />
                       </div>
@@ -193,7 +193,7 @@ export default function UnifiedTimeline({
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-                          className="mt-4 flex justify-center"
+                          className="mt-2 flex justify-center"
                         >
                           <div className="px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary">
                             {itemYear}
@@ -223,7 +223,7 @@ export default function UnifiedTimeline({
                     duration: prefersReducedMotion ? 0 : 0.6,
                     delay: prefersReducedMotion ? 0 : 0.3,
                   }}
-                  className="mt-8 flex justify-center"
+                  className="mt-4 flex justify-center"
                 >
                   <div className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg">
                     1984
@@ -334,7 +334,7 @@ export default function UnifiedTimeline({
               <div className="mt-24">
                 <TimelineCard item={birthItem} index={0} />
                 {/* Year Label - After the card */}
-                <div className="flex justify-center mt-8 relative z-20">
+                <div className="flex justify-center mt-4 relative z-20">
                   <motion.div
                     initial={
                       prefersReducedMotion

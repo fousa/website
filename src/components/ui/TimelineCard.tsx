@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useId, useCallback, useMemo, memo } from "react";
 import Image from "next/image";
-import { Calendar, MapPin, ExternalLink, Github } from "lucide-react";
+import { MapPin, ExternalLink, Github, Briefcase, GraduationCap, Cat } from "lucide-react";
 import type { UnifiedTimelineItem } from "@/types";
 
 interface TimelineCardProps {
@@ -11,59 +11,111 @@ interface TimelineCardProps {
   index: number;
 }
 
-export default function TimelineCard({ item, index }: TimelineCardProps) {
+// Global touch detection (runs once)
+let isTouchDeviceGlobal: boolean | null = null;
+const getIsTouchDevice = () => {
+  if (isTouchDeviceGlobal === null && typeof window !== 'undefined') {
+    isTouchDeviceGlobal = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }
+  return isTouchDeviceGlobal ?? false;
+};
+
+function TimelineCard({ item, index }: TimelineCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const prefersReducedMotion = useReducedMotion();
+  const cardId = useId();
+  const expandedContentId = `${cardId}-expanded`;
 
-  const isExperience = item.itemType === "experience";
-  const isProject = item.itemType === "project";
-  const isBirth = isExperience && item.type === "birth";
+  // Detect touch device once on mount
+  useEffect(() => {
+    setIsTouchDevice(getIsTouchDevice());
+  }, []);
 
-  // Format date to Mon YYYY (e.g., "Jan 2021")
-  const formatDate = (date: string) => {
-    if (date === "Present") return "Present";
-    const d = new Date(date);
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
-  };
+  // Memoized computed values
+  const { isExperience, isProject, isBirth, isEducation, isProfessionalProject } = useMemo(() => ({
+    isExperience: item.itemType === "experience",
+    isProject: item.itemType === "project",
+    isBirth: item.itemType === "experience" && item.type === "birth",
+    isEducation: item.itemType === "experience" && item.type === "education",
+    isProfessionalProject: item.itemType === "project" && item.type !== "personal",
+  }), [item.itemType, item.type]);
 
-  // Check if start and end are the same month/year
-  const isSameMonth = (start: string, end?: string) => {
-    if (!end || end === "Present") return false;
-    return formatDate(start) === formatDate(end);
-  };
+  // Memoized date formatting
+  const dateRange = useMemo(() => {
+    const formatDate = (date: string) => {
+      if (date === "Present") return "Present";
+      const d = new Date(date);
+      return d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
+    };
 
-  // Build date range string
-  const getDateRange = () => {
     const startFormatted = formatDate(item.startDate);
     if (!item.endDate) {
       return `${startFormatted} - Present`;
     }
-    if (isSameMonth(item.startDate, item.endDate)) {
+    const endFormatted = formatDate(item.endDate);
+    if (startFormatted === endFormatted) {
       return startFormatted;
     }
-    return `${startFormatted} - ${formatDate(item.endDate)}`;
-  };
+    return `${startFormatted} - ${endFormatted}`;
+  }, [item.startDate, item.endDate]);
 
-  const dateRange = getDateRange();
+  // Memoized title and subtitle
+  const { primaryTitle, secondaryText, projectSubtitle } = useMemo(() => {
+    if (isExperience && item.itemType === "experience") {
+      return {
+        primaryTitle: item.company,
+        secondaryText: item.title,
+        projectSubtitle: "",
+      };
+    }
+    if (isProject && item.itemType === "project") {
+      return {
+        primaryTitle: item.title,
+        secondaryText: "",
+        projectSubtitle: item.subtitle || "",
+      };
+    }
+    return { primaryTitle: "", secondaryText: "", projectSubtitle: "" };
+  }, [isExperience, isProject, item]);
 
-  // Get primary title and subtitle based on item type
-  // Experiences: Company as title, Role as subtitle
-  // Projects: Title with inline subtitle
-  const primaryTitle = isExperience ? item.company : item.title;
-  const secondaryText = isExperience ? item.title : "";
-  const projectSubtitle = isProject ? item.subtitle : "";
-
-  // Get employer label for projects
-  const getEmployerLabel = () => {
-    if (!isProject) return null;
+  // Memoized employer label
+  const employerLabel = useMemo(() => {
+    if (!isProject || item.itemType !== "project") return null;
     if (item.employer) return item.employer;
     if (item.type === "personal") return "fousa";
     return null;
-  };
-  const employerLabel = getEmployerLabel();
+  }, [isProject, item]);
+
+  // Memoized event handlers
+  const handleMouseEnter = useCallback(() => {
+    if (!isTouchDevice) setIsExpanded(true);
+  }, [isTouchDevice]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!isTouchDevice) setIsExpanded(false);
+  }, [isTouchDevice]);
+
+  const handleClick = useCallback(() => {
+    setIsExpanded(prev => !prev);
+  }, []);
+
+  const handleFocus = useCallback(() => {
+    if (!isTouchDevice) setIsExpanded(true);
+  }, [isTouchDevice]);
+
+  const handleBlur = useCallback((e: React.FocusEvent) => {
+    if (!isTouchDevice && !e.currentTarget.contains(e.relatedTarget as Node)) {
+      setIsExpanded(false);
+    }
+  }, [isTouchDevice]);
+
+  const handleLinkClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+  }, []);
 
   // Special render for birth item - just the image
-  if (isBirth && isExperience && item.image) {
+  if (isBirth && item.itemType === "experience" && item.image) {
     return (
       <motion.div
         initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -100,38 +152,38 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
       }}
     >
       <div
-        className={`relative bg-background-secondary border cursor-pointer overflow-visible ${
+        className={`relative border cursor-pointer overflow-visible transition-all duration-200 ease-out ${
           isExpanded
-            ? 'border-accent rounded-t-lg'
-            : 'border-border rounded-lg'
+            ? 'border-accent bg-background-secondary'
+            : 'border-border rounded-lg bg-background-secondary hover:border-accent/50 hover:shadow-md'
         }`}
         style={{
           borderBottomColor: isExpanded ? 'transparent' : undefined,
-          willChange: 'border-color',
+          backgroundColor: isExpanded ? '#ffffff' : undefined,
+          borderRadius: isExpanded ? '0.5rem 0.5rem 0 0' : undefined,
         }}
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => setIsExpanded(false)}
-        onClick={() => setIsExpanded(!isExpanded)}
-        onFocus={() => setIsExpanded(true)}
-        onBlur={(e) => {
-          // Only collapse if focus moves outside the card
-          if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-            setIsExpanded(false);
-          }
-        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         tabIndex={0}
         role="button"
         aria-expanded={isExpanded}
-        aria-label={`${primaryTitle}${secondaryText ? `, ${secondaryText}` : ""}. Click to ${isExpanded ? "collapse" : "expand"} details.`}
+        aria-controls={expandedContentId}
+        aria-label={`${primaryTitle}${secondaryText ? `, ${secondaryText}` : ""}. ${isTouchDevice ? 'Tap' : 'Click'} to ${isExpanded ? "collapse" : "expand"} details.`}
       >
-        <div className="p-6">
+        <div className="p-6" style={{
+          backgroundColor: isExpanded ? '#ffffff' : undefined,
+          borderRadius: isExpanded ? '0.5rem 0.5rem 0 0' : undefined,
+        }}>
           {/* Header - Always Visible */}
           <div className="flex items-start justify-between gap-4 mb-3">
             <div className="flex-1">
               <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-1">
                 {primaryTitle}
                 {projectSubtitle && (
-                  <span className="font-body font-normal text-foreground-secondary">
+                  <span className="font-body font-normal text-foreground-secondary text-base md:text-lg">
                     {" — "}{projectSubtitle}
                   </span>
                 )}
@@ -145,7 +197,8 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
 
             {/* Type Badge - only for experiences */}
             {isExperience && (
-              <div className="px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-accent-muted text-accent">
+              <div className="px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-accent-muted text-accent flex items-center gap-1">
+                {isEducation && <GraduationCap size={12} aria-hidden="true" />}
                 {item.type.replace("-", " ")}
               </div>
             )}
@@ -155,12 +208,15 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
           <div className="flex flex-wrap items-center gap-2 text-sm text-foreground-muted">
             <span>{dateRange}</span>
             {employerLabel && (
-              <span className="px-2 py-0.5 bg-background-tertiary rounded-full text-xs">
-                @ {employerLabel}
+              <span className="px-2 py-0.5 bg-background-tertiary rounded-full text-xs flex items-center gap-1">
+                {employerLabel === "fousa" && <Cat size={10} aria-hidden="true" />}
+                {isProfessionalProject && employerLabel !== "fousa" && <Briefcase size={10} aria-hidden="true" />}
+                {employerLabel}
               </span>
             )}
-            {isProject && item.client && (
-              <span className="px-2 py-0.5 bg-accent-muted text-accent rounded-full text-xs">
+            {isProject && item.itemType === "project" && item.client && (
+              <span className="px-2 py-0.5 bg-accent-muted text-accent rounded-full text-xs flex items-center gap-1">
+                {isProfessionalProject && !employerLabel && <Briefcase size={10} aria-hidden="true" />}
                 {item.client}
               </span>
             )}
@@ -170,64 +226,67 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
         {/* Expandable Content - Absolute positioned as sibling */}
         {isExpanded && (
           <div
-            className="absolute left-[-1px] right-[-1px] top-full bg-background-secondary border-l border-r border-b border-accent rounded-b-lg shadow-xl z-50"
+            id={expandedContentId}
+            role="region"
+            aria-label={`Details for ${primaryTitle}`}
+            className="absolute left-[-1px] right-[-1px] top-full border-l border-r border-b border-accent rounded-b-lg z-50"
             style={{
-              animation: prefersReducedMotion ? 'none' : 'fadeIn 0.15s ease-out',
+              animation: prefersReducedMotion ? 'none' : 'fadeIn 0.2s ease-out',
+              backgroundColor: '#ffffff',
+              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
             }}
           >
-            <div className="px-6 pb-6 pt-4">
-              {/* Meta Info */}
-              <div className="flex flex-wrap gap-4 mb-4 text-sm text-foreground-muted border-t border-b border-border py-3">
-                <div className="flex items-center gap-1.5">
-                  <Calendar size={16} aria-hidden="true" />
-                  <span>{dateRange}</span>
+            <div className="px-6 pb-3 pt-1">
+              {/* Meta Info - only show if there's location or techStack */}
+              {((item.itemType === "experience" && item.location) || (item.itemType === "project" && item.techStack)) && (
+                <div className="flex flex-wrap gap-2 mb-3 text-sm text-foreground-muted border-t border-b border-border py-3">
+                  {item.itemType === "experience" && item.location && (
+                    <div className="flex items-center gap-1">
+                      <MapPin size={12} aria-hidden="true" />
+                      <span>{item.location}</span>
+                    </div>
+                  )}
+                  {item.itemType === "project" && item.techStack && (
+                    <div className="flex flex-wrap gap-1">
+                      {item.techStack.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-1.5 py-0.5 bg-background-tertiary rounded text-xs"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {item.techStack.length > 3 && (
+                        <span className="px-1.5 py-0.5 text-xs">
+                          +{item.techStack.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
-                {isExperience && item.location && (
-                  <div className="flex items-center gap-1.5">
-                    <MapPin size={16} aria-hidden="true" />
-                    <span>{item.location}</span>
-                  </div>
-                )}
-                {isProject && item.techStack && (
-                  <div className="flex flex-wrap gap-2">
-                    {item.techStack.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-0.5 bg-background-tertiary rounded text-xs"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {item.techStack.length > 3 && (
-                      <span className="px-2 py-0.5 text-xs">
-                        +{item.techStack.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
+              )}
 
               {/* Description for Projects */}
-              {isProject && item.description && (
-                <p className="text-foreground-secondary mb-4">
+              {item.itemType === "project" && item.description && (
+                <p className="text-foreground-secondary mb-1.5">
                   {item.description}
                 </p>
               )}
 
               {/* Content */}
-              <div className="prose prose-invert prose-sm max-w-none mb-4">
+              <div className="prose prose-invert prose-sm max-w-none">
                 <p className="text-foreground-secondary leading-relaxed whitespace-pre-line">
                   {item.content}
                 </p>
               </div>
 
               {/* Tech Stack (Full) */}
-              {isProject && item.techStack && item.techStack.length > 3 && (
-                <div className="flex flex-wrap gap-2 mb-4">
+              {item.itemType === "project" && item.techStack && item.techStack.length > 3 && (
+                <div className="flex flex-wrap gap-1 mt-3">
                   {item.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-background-tertiary rounded text-xs text-foreground-secondary"
+                      className="px-1.5 py-0.5 bg-background-tertiary rounded text-xs text-foreground-secondary"
                     >
                       {tech}
                     </span>
@@ -236,15 +295,15 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
               )}
 
               {/* Links */}
-              {isProject && (item.liveUrl || item.repoUrl) && (
-                <div className="flex gap-3 pt-3 border-t border-border">
+              {item.itemType === "project" && (item.liveUrl || item.repoUrl) && (
+                <div className="flex gap-2 pt-3 border-t border-border">
                   {item.liveUrl && (
                     <a
                       href={item.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={handleLinkClick}
                       aria-label={`Visit live site for ${item.title}`}
                     >
                       <ExternalLink size={16} aria-hidden="true" />
@@ -257,7 +316,7 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={handleLinkClick}
                       aria-label={`View source code for ${item.title}`}
                     >
                       <Github size={16} aria-hidden="true" />
@@ -273,3 +332,5 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
     </motion.div>
   );
 }
+
+export default memo(TimelineCard);
