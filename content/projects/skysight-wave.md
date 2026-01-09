@@ -5,8 +5,8 @@ type: client-work
 client: Perlan
 techStack: [iOS, iPadOS, Swift, Mapbox, SkySight]
 liveUrl: https://perlanproject.org
-startDate: 2017-10-03
-endDate: 2023-07-28
+startDate: 2017-10
+endDate: 2023-07
 ---
 
 An iPad app for the Perlan Project that displays predicted wave winds at high altitudes.

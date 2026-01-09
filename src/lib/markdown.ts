@@ -121,9 +121,21 @@ export function getUnifiedTimeline(): {
 
   const workAndProjects = [...workItems, ...projectItems];
 
-  // Sort by startDate (newest first)
+  // Sort by startDate (newest first), projects come before experiences when same month
   const sortedWork = workAndProjects.sort((a, b) => {
-    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+    const dateA = new Date(a.startDate).getTime();
+    const dateB = new Date(b.startDate).getTime();
+
+    // If dates are different, sort by date (newest first)
+    if (dateB !== dateA) {
+      return dateB - dateA;
+    }
+
+    // If same date, projects come before experiences
+    if (a.itemType === "project" && b.itemType === "experience") return -1;
+    if (a.itemType === "experience" && b.itemType === "project") return 1;
+
+    return 0;
   });
 
   const sortedEducation = educationItems.sort((a, b) => {

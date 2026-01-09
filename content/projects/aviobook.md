@@ -5,8 +5,8 @@ type: client-work
 client: itsme
 techStack: [iPadOS, Objective-C, Swift]
 liveUrl: https://aviobook.aero
-startDate: 2021-03-01
-endDate: 2022-02-01
+startDate: 2021-03
+endDate: 2022-02
 ---
 
 An iPad application used in commercial jet cockpits worldwide.

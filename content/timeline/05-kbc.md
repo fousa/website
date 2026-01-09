@@ -1,8 +1,8 @@
 ---
 title: "Mainframe & Java Developer"
 company: "KBC Group"
-startDate: "2005-08-01"
-endDate: "2009-11-30"
+startDate: "2005-08"
+endDate: "2009-11"
 type: "full-time"
 location: "Belgium"
 ---

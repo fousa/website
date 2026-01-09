@@ -1,7 +1,7 @@
 ---
 title: "Senior iOS Developer / Owner"
 company: "Fousa"
-startDate: "2012-06-01"
+startDate: "2012-06"
 type: "freelance"
 location: "Mortsel, Flemish Region, Belgium"
 ---

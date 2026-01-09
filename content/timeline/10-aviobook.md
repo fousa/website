@@ -1,8 +1,8 @@
 ---
 title: "Expert iOS Developer"
 company: "AVIOBOOK"
-startDate: "2021-02-01"
-endDate: "2022-01-31"
+startDate: "2021-02"
+endDate: "2022-01"
 type: "full-time"
 location: "Hasselt, Flemish Region, Belgium"
 ---

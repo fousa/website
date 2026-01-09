@@ -6,7 +6,7 @@ employer: icapps
 client: Monizze
 techStack: [iOS, Swift]
 liveUrl: https://www.monizze.be/nl/
-startDate: 2017-05-01
+startDate: 2017-05
 ---
 
 An iPhone app for checking Monizze meal cheque balances and locating nearby stores that accept them.

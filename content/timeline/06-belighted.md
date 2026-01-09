@@ -1,8 +1,8 @@
 ---
 title: "Ruby on Rails Developer"
 company: "Belighted"
-startDate: "2009-11-01"
-endDate: "2010-03-31"
+startDate: "2009-11"
+endDate: "2010-03"
 type: "full-time"
 location: "Belgium"
 ---

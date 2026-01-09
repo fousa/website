@@ -1,8 +1,8 @@
 ---
 title: "Student Internship"
 company: "Telindus"
-startDate: "2005-02-01"
-endDate: "2005-05-31"
+startDate: "2005-02"
+endDate: "2005-05"
 type: "internship"
 location: "Belgium"
 ---

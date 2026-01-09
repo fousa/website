@@ -1,7 +1,7 @@
 ---
 title: "Senior iOS Developer & Mobile Team Lead"
 company: "itsme®"
-startDate: "2022-01-01"
+startDate: "2022-01"
 type: "freelance"
 location: "Brussels, Brussels Region, Belgium"
 ---

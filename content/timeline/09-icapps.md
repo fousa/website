@@ -1,8 +1,8 @@
 ---
 title: "Senior & Lead iOS/tvOS Developer"
 company: "icapps"
-startDate: "2014-06-01"
-endDate: "2021-02-28"
+startDate: "2014-06"
+endDate: "2021-02"
 type: "full-time"
 location: "Belgium"
 ---

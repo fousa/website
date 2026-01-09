@@ -19,27 +19,44 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
   const isProject = item.itemType === "project";
   const isBirth = isExperience && item.type === "birth";
 
-  // Format date range
+  // Format date to Mon YYYY (e.g., "Jan 2021")
   const formatDate = (date: string) => {
     if (date === "Present") return "Present";
     const d = new Date(date);
     return d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
   };
 
-  const dateRange = `${formatDate(item.startDate)}${
-    item.endDate ? ` - ${formatDate(item.endDate)}` : ""
-  }`;
+  // Check if start and end are the same month/year
+  const isSameMonth = (start: string, end?: string) => {
+    if (!end || end === "Present") return false;
+    return formatDate(start) === formatDate(end);
+  };
 
-  // Get subtitle based on item type
-  const subtitle = isExperience
-    ? item.company
-    : isProject && item.employer
-    ? item.employer
-    : isProject && item.client
-    ? item.client
-    : isProject
-    ? item.type.replace("-", " ")
-    : "";
+  // Build date range string
+  const getDateRange = () => {
+    const startFormatted = formatDate(item.startDate);
+    if (!item.endDate) {
+      return `${startFormatted} - Present`;
+    }
+    if (isSameMonth(item.startDate, item.endDate)) {
+      return startFormatted;
+    }
+    return `${startFormatted} - ${formatDate(item.endDate)}`;
+  };
+
+  const dateRange = getDateRange();
+
+  // Get subtitle based on item type (only for experiences)
+  const subtitle = isExperience ? item.company : "";
+
+  // Get employer label for projects
+  const getEmployerLabel = () => {
+    if (!isProject) return null;
+    if (item.employer) return item.employer;
+    if (item.type === "personal") return "fousa";
+    return null;
+  };
+  const employerLabel = getEmployerLabel();
 
   // Special render for birth item - just the image
   if (isBirth && isExperience && item.image) {
@@ -98,26 +115,39 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
       >
         <div className="p-6">
           {/* Header - Always Visible */}
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start justify-between gap-4 mb-3">
             <div className="flex-1">
               <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-1">
                 {item.title}
               </h3>
-              <p className="font-body text-base md:text-lg text-foreground-secondary">
-                {subtitle}
-              </p>
+              {subtitle && (
+                <p className="font-body text-base md:text-lg text-foreground-secondary">
+                  {subtitle}
+                </p>
+              )}
             </div>
 
-            {/* Type Badge */}
-            <div
-              className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${
-                isExperience
-                  ? "bg-accent-muted text-accent"
-                  : "bg-background-tertiary text-foreground-secondary"
-              }`}
-            >
-              {isExperience ? item.type.replace("-", " ") : "project"}
-            </div>
+            {/* Type Badge - only for experiences */}
+            {isExperience && (
+              <div className="px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap bg-accent-muted text-accent">
+                {item.type.replace("-", " ")}
+              </div>
+            )}
+          </div>
+
+          {/* Meta row - Date and Employer/Client badges */}
+          <div className="flex flex-wrap items-center gap-2 text-sm text-foreground-muted">
+            <span>{dateRange}</span>
+            {employerLabel && (
+              <span className="px-2 py-0.5 bg-background-tertiary rounded-full text-xs">
+                @ {employerLabel}
+              </span>
+            )}
+            {isProject && item.client && (
+              <span className="px-2 py-0.5 bg-accent-muted text-accent rounded-full text-xs">
+                {item.client}
+              </span>
+            )}
           </div>
         </div>
 

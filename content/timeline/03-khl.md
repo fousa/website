@@ -1,8 +1,8 @@
 ---
 title: "Bachelor of Applied Informatics"
 company: "Katholieke Hogeschool Leuven"
-startDate: "2002-09-01"
-endDate: "2005-06-30"
+startDate: "2002-09"
+endDate: "2005-06"
 type: "education"
 location: "Leuven, Belgium"
 ---

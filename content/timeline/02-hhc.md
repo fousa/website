@@ -1,8 +1,8 @@
 ---
 title: "Modern Languages - Science"
 company: "Heilig Hart-College Tervuren"
-startDate: "1996-09-01"
-endDate: "2002-06-30"
+startDate: "1996-09"
+endDate: "2002-06"
 type: "education"
 location: "Tervuren, Belgium"
 ---

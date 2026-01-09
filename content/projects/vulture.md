@@ -4,7 +4,7 @@ slug: vulture
 type: personal
 techStack: [Swift, Mapbox, CoreData, iCloud, SkySight]
 liveUrl: https://vulture.aero
-startDate: 2019-09-04
+startDate: 2019-09
 endDate: Present
 ---
 

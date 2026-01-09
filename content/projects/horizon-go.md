@@ -5,8 +5,8 @@ type: client-work
 employer: icapps
 client: Liberty Global
 techStack: [tvOS, Swift, FairPlay]
-startDate: 2017-05-17
-endDate: 2018-02-01
+startDate: 2017-05
+endDate: 2018-02
 ---
 
 An Apple TV application used across Europe by multiple providers. 

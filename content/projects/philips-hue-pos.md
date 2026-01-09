@@ -5,8 +5,8 @@ type: client-work
 employer: icapps
 client: Signify
 techStack: [iPadOS, Swift, Bluetooth]
-startDate: 2016-09-30
-endDate: 2017-05-01
+startDate: 2016-09
+endDate: 2017-05
 ---
 
 An iPad app built for Apple Store demonstrations of Philips Hue lighting.
