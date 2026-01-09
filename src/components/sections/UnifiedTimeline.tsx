@@ -25,15 +25,10 @@ export default function UnifiedTimeline({
     );
   }
 
-  // Extract unique years from items for timeline markers
+  // Extract year from date string
   const getYear = (dateString: string) => {
     if (dateString === "Present") return new Date().getFullYear();
     return new Date(dateString).getFullYear();
-  };
-
-  const getYearLabel = (dateString: string, isFirst: boolean) => {
-    if (isFirst) return "Present";
-    return getYear(dateString).toString();
   };
 
   const renderTimelineItem = (
@@ -44,14 +39,16 @@ export default function UnifiedTimeline({
   ) => {
     const isProject = item.itemType === "project";
     const itemYear = getYear(item.startDate);
-    const showYearLabel =
-      index === 0 || itemYear !== getYear(items[index - 1].startDate);
-    const yearLabel = getYearLabel(item.startDate, index === 0);
+    // Show year label AFTER the last item of each year
+    const isLastItemOfYear =
+      index === items.length - 1 || itemYear !== getYear(items[index + 1].startDate);
+    const yearLabel = itemYear.toString();
 
     if (isMobile) {
       return (
         <div key={`mobile-${item.itemType}-${index}`} className="mb-6">
-          {showYearLabel && (
+          <TimelineCard item={item} index={index} />
+          {isLastItemOfYear && (
             <motion.div
               initial={
                 prefersReducedMotion
@@ -64,12 +61,13 @@ export default function UnifiedTimeline({
                 duration: prefersReducedMotion ? 0 : 0.6,
                 delay: prefersReducedMotion ? 0 : 0.3,
               }}
-              className="mb-4 inline-flex px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg pointer-events-none"
+              className="mt-6 flex justify-center"
             >
-              {yearLabel}
+              <div className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg">
+                {yearLabel}
+              </div>
             </motion.div>
           )}
-          <TimelineCard item={item} index={index} />
         </div>
       );
     }
@@ -77,30 +75,6 @@ export default function UnifiedTimeline({
     // Desktop
     return (
       <div key={`desktop-${item.itemType}-${index}`} className="relative mb-12">
-        {showYearLabel && (
-          <div
-            className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-            style={{ top: "-2.5rem", zIndex: 20 }}
-          >
-            <motion.div
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 1, scale: 1 }
-                  : { opacity: 0, scale: 0.8 }
-              }
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: prefersReducedMotion ? 0 : 0.6,
-                delay: prefersReducedMotion ? 0 : 0.3,
-              }}
-              className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg"
-            >
-              {yearLabel}
-            </motion.div>
-          </div>
-        )}
-
         <div
           style={{
             display: "grid",
@@ -144,6 +118,27 @@ export default function UnifiedTimeline({
             <div />
           )}
         </div>
+
+        {isLastItemOfYear && (
+          <div className="flex justify-center mt-8 relative z-20">
+            <motion.div
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0.8 }
+              }
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 0.6,
+                delay: prefersReducedMotion ? 0 : 0.3,
+              }}
+              className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg"
+            >
+              {yearLabel}
+            </motion.div>
+          </div>
+        )}
       </div>
     );
   };
@@ -186,23 +181,25 @@ export default function UnifiedTimeline({
                 </h3>
                 {educationItems.map((item, index) => {
                   const itemYear = getYear(item.startDate);
-                  const showYearLabel = index === 0 || itemYear !== getYear(educationItems[index - 1].startDate);
+                  const isLastItemOfYear = index === educationItems.length - 1 || itemYear !== getYear(educationItems[index + 1].startDate);
                   return (
                     <div key={`mobile-education-${index}`} className="mb-4">
-                      {showYearLabel && (
+                      <div className="scale-95 origin-left">
+                        <TimelineCard item={item} index={index} />
+                      </div>
+                      {isLastItemOfYear && (
                         <motion.div
                           initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           viewport={{ once: true }}
                           transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-                          className="mb-3 inline-flex px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary"
+                          className="mt-4 flex justify-center"
                         >
-                          {itemYear}
+                          <div className="px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary">
+                            {itemYear}
+                          </div>
                         </motion.div>
                       )}
-                      <div className="scale-95 origin-left">
-                        <TimelineCard item={item} index={index} />
-                      </div>
                     </div>
                   );
                 })}
@@ -212,7 +209,8 @@ export default function UnifiedTimeline({
             {/* Birth Section */}
             {birthItem && (
               <div className="mt-24">
-                {/* Year Label */}
+                <TimelineCard item={birthItem} index={0} />
+                {/* Year Label - After the card */}
                 <motion.div
                   initial={
                     prefersReducedMotion
@@ -225,13 +223,12 @@ export default function UnifiedTimeline({
                     duration: prefersReducedMotion ? 0 : 0.6,
                     delay: prefersReducedMotion ? 0 : 0.3,
                   }}
-                  className="mb-12 flex justify-center"
+                  className="mt-8 flex justify-center"
                 >
-                  <div className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg pointer-events-none">
+                  <div className="px-4 py-1.5 bg-background border border-accent rounded-full text-sm font-bold text-foreground shadow-lg">
                     1984
                   </div>
                 </motion.div>
-                <TimelineCard item={birthItem} index={0} />
               </div>
             )}
           </div>
@@ -262,27 +259,13 @@ export default function UnifiedTimeline({
 
                 {educationItems.map((item, index) => {
                   const itemYear = getYear(item.startDate);
-                  const showYearLabel = index === 0 || itemYear !== getYear(educationItems[index - 1].startDate);
+                  const isLastItemOfYear = index === educationItems.length - 1 || itemYear !== getYear(educationItems[index + 1].startDate);
                   // Education on the right, internship/holiday-work on the left
                   const isEducation = item.itemType === "experience" && item.type === "education";
                   const isLeft = !isEducation; // internship or holiday-work goes left
 
                   return (
                     <div key={`desktop-education-${index}`} className="relative mb-10">
-                      {showYearLabel && (
-                        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none" style={{ top: "-2.5rem", zIndex: 20 }}>
-                          <motion.div
-                            initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-                            className="px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary"
-                          >
-                            {itemYear}
-                          </motion.div>
-                        </div>
-                      )}
-
                       <div
                         style={{
                           display: "grid",
@@ -326,6 +309,20 @@ export default function UnifiedTimeline({
                           <div />
                         )}
                       </div>
+
+                      {isLastItemOfYear && (
+                        <div className="flex justify-center mt-6 relative z-20">
+                          <motion.div
+                            initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+                            className="px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary"
+                          >
+                            {itemYear}
+                          </motion.div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -334,12 +331,10 @@ export default function UnifiedTimeline({
 
             {/* Birth Section */}
             {birthItem && (
-              <div className="mt-24 relative">
-                {/* Year Label - Centered like other year labels */}
-                <div
-                  className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
-                  style={{ top: "-4rem", zIndex: 20 }}
-                >
+              <div className="mt-24">
+                <TimelineCard item={birthItem} index={0} />
+                {/* Year Label - After the card */}
+                <div className="flex justify-center mt-8 relative z-20">
                   <motion.div
                     initial={
                       prefersReducedMotion
@@ -357,7 +352,6 @@ export default function UnifiedTimeline({
                     1984
                   </motion.div>
                 </div>
-                <TimelineCard item={birthItem} index={0} />
               </div>
             )}
           </div>
