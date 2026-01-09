@@ -1,5 +1,6 @@
 ---
-title: YUGO - Content As You Go
+title: YUGO
+subtitle: Content As You Go
 slug: yugo
 type: client-work
 employer: icapps

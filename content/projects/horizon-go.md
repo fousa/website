@@ -1,5 +1,6 @@
 ---
-title: Horizon Go - European TV Platform
+title: Horizon Go
+subtitle: European TV Platform
 slug: horizon-go
 type: client-work
 employer: icapps

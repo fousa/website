@@ -46,8 +46,12 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
 
   const dateRange = getDateRange();
 
-  // Get subtitle based on item type (only for experiences)
-  const subtitle = isExperience ? item.company : "";
+  // Get primary title and subtitle based on item type
+  // Experiences: Company as title, Role as subtitle
+  // Projects: Title with inline subtitle
+  const primaryTitle = isExperience ? item.company : item.title;
+  const secondaryText = isExperience ? item.title : "";
+  const projectSubtitle = isProject ? item.subtitle : "";
 
   // Get employer label for projects
   const getEmployerLabel = () => {
@@ -85,10 +89,10 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
 
   return (
     <motion.div
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 50 }}
+      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.05 }}
       className="group"
       style={{
         position: 'relative',
@@ -107,22 +111,34 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
         }}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
+        onClick={() => setIsExpanded(!isExpanded)}
         onFocus={() => setIsExpanded(true)}
-        onBlur={() => setIsExpanded(false)}
+        onBlur={(e) => {
+          // Only collapse if focus moves outside the card
+          if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            setIsExpanded(false);
+          }
+        }}
         tabIndex={0}
-        role="article"
-        aria-label={`${item.title} - ${subtitle}`}
+        role="button"
+        aria-expanded={isExpanded}
+        aria-label={`${primaryTitle}${secondaryText ? `, ${secondaryText}` : ""}. Click to ${isExpanded ? "collapse" : "expand"} details.`}
       >
         <div className="p-6">
           {/* Header - Always Visible */}
           <div className="flex items-start justify-between gap-4 mb-3">
             <div className="flex-1">
               <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-1">
-                {item.title}
+                {primaryTitle}
+                {projectSubtitle && (
+                  <span className="font-body font-normal text-foreground-secondary">
+                    {" — "}{projectSubtitle}
+                  </span>
+                )}
               </h3>
-              {subtitle && (
+              {secondaryText && (
                 <p className="font-body text-base md:text-lg text-foreground-secondary">
-                  {subtitle}
+                  {secondaryText}
                 </p>
               )}
             </div>
@@ -163,12 +179,12 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
               {/* Meta Info */}
               <div className="flex flex-wrap gap-4 mb-4 text-sm text-foreground-muted border-t border-b border-border py-3">
                 <div className="flex items-center gap-1.5">
-                  <Calendar size={16} />
+                  <Calendar size={16} aria-hidden="true" />
                   <span>{dateRange}</span>
                 </div>
                 {isExperience && item.location && (
                   <div className="flex items-center gap-1.5">
-                    <MapPin size={16} />
+                    <MapPin size={16} aria-hidden="true" />
                     <span>{item.location}</span>
                   </div>
                 )}
@@ -231,7 +247,7 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
                       onClick={(e) => e.stopPropagation()}
                       aria-label={`Visit live site for ${item.title}`}
                     >
-                      <ExternalLink size={16} />
+                      <ExternalLink size={16} aria-hidden="true" />
                       <span className="text-sm">Live Site</span>
                     </a>
                   )}
@@ -244,7 +260,7 @@ export default function TimelineCard({ item, index }: TimelineCardProps) {
                       onClick={(e) => e.stopPropagation()}
                       aria-label={`View source code for ${item.title}`}
                     >
-                      <Github size={16} />
+                      <Github size={16} aria-hidden="true" />
                       <span className="text-sm">Source Code</span>
                     </a>
                   )}

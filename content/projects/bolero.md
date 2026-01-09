@@ -1,5 +1,6 @@
 ---
-title: Bolero - Trading
+title: Bolero
+subtitle: Trading
 slug: bolero
 type: client-work
 employer: icapps

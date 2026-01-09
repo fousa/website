@@ -37,6 +37,7 @@ export default function ExpandingButton({
         className="flex-shrink-0"
         animate={{ rotate: isExpanded ? 5 : 0 }}
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
+        aria-hidden="true"
       >
         {icon}
       </motion.span>

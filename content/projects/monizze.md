@@ -1,5 +1,6 @@
 ---
-title: Monizze - Meal Cheque Manager
+title: Monizze
+subtitle: Meal Cheque Manager
 slug: monizze
 type: client-work
 employer: icapps

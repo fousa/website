@@ -1,5 +1,6 @@
 ---
-title: SkySight Wave - Wave Wind Prediction
+title: SkySight Wave
+subtitle: Wave Wind Prediction
 slug: skysight-wave
 type: client-work
 client: Perlan

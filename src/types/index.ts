@@ -12,6 +12,7 @@ export interface TimelineItem {
 
 export interface Project {
   title: string;
+  subtitle?: string;
   slug: string;
   type: "client-work" | "personal" | "open-source";
   employer?: string;

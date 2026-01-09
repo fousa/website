@@ -184,11 +184,28 @@ export default function UnifiedTimeline({
                 <h3 className="text-2xl font-bold text-foreground mb-6">
                   Education
                 </h3>
-                {educationItems.map((item, index) => (
-                  <div key={`mobile-education-${index}`} className="mb-6">
-                    <TimelineCard item={item} index={index} />
-                  </div>
-                ))}
+                {educationItems.map((item, index) => {
+                  const itemYear = getYear(item.startDate);
+                  const showYearLabel = index === 0 || itemYear !== getYear(educationItems[index - 1].startDate);
+                  return (
+                    <div key={`mobile-education-${index}`} className="mb-4">
+                      {showYearLabel && (
+                        <motion.div
+                          initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+                          className="mb-3 inline-flex px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary"
+                        >
+                          {itemYear}
+                        </motion.div>
+                      )}
+                      <div className="scale-95 origin-left">
+                        <TimelineCard item={item} index={index} />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
 
@@ -234,20 +251,37 @@ export default function UnifiedTimeline({
                   }
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: prefersReducedMotion ? 0 : 0.6 }}
+                  transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
                   className="text-center text-2xl font-bold text-foreground mb-8"
                 >
                   Education
                 </motion.h3>
-                {educationItems.map((item, index) => (
-                  <div key={`desktop-education-${index}`} className="mb-12">
-                    <div className="flex justify-center">
-                      <div className="w-full max-w-2xl">
-                        <TimelineCard item={item} index={index} />
+                {educationItems.map((item, index) => {
+                  const itemYear = getYear(item.startDate);
+                  const showYearLabel = index === 0 || itemYear !== getYear(educationItems[index - 1].startDate);
+                  return (
+                    <div key={`desktop-education-${index}`} className="mb-8 relative">
+                      {showYearLabel && (
+                        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none" style={{ top: "-2rem", zIndex: 20 }}>
+                          <motion.div
+                            initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+                            className="px-3 py-1 bg-background border border-border rounded-full text-xs font-bold text-foreground-secondary"
+                          >
+                            {itemYear}
+                          </motion.div>
+                        </div>
+                      )}
+                      <div className="flex justify-center">
+                        <div className="w-full max-w-xl">
+                          <TimelineCard item={item} index={index} />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
 

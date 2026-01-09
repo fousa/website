@@ -1,5 +1,6 @@
 ---
-title: Track - Track Viewer
+title: Track
+subtitle: Track Viewer
 slug: track
 type: personal
 techStack: [iOS, iPadOS, macOS, Swift]

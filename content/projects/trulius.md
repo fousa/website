@@ -1,5 +1,6 @@
 ---
-title: TruliUs - Corporate Identity App
+title: TruliUs
+subtitle: Corporate Identity App
 slug: trulius
 type: client-work
 employer: icapps

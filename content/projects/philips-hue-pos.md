@@ -1,5 +1,6 @@
 ---
-title: Philips Hue POS - In-Store Point of Sale
+title: Philips Hue POS
+subtitle: In-Store Point of Sale
 slug: philips-hue-pos
 type: client-work
 employer: icapps

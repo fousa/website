@@ -1,5 +1,6 @@
 ---
-title: AvioBook - Electronic Flight Planning
+title: AvioBook
+subtitle: Electronic Flight Planning
 slug: aviobook
 type: client-work
 client: itsme

@@ -1,5 +1,6 @@
 ---
-title: itsme - Your Digital Identity
+title: itsme
+subtitle: Your Digital Identity
 slug: itsme
 type: client-work
 client: itsme

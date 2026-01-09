@@ -97,7 +97,7 @@ export default function ParallaxLogo({ size = 200, name, role }: ParallaxLogoPro
       onFocus={() => setIsExpanded(true)}
       onBlur={() => setIsExpanded(false)}
     >
-      <div className="flex items-center gap-4 md:gap-12 w-full justify-center md:justify-start">
+      <div className="flex items-center gap-4 md:gap-12 w-full justify-center">
         {/* Logo */}
         <div className="relative flex-shrink-0 w-32 h-32 md:w-64 md:h-64 lg:w-80 lg:h-80">
           <Image

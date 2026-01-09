@@ -20,7 +20,7 @@ export default function Footer() {
             <span>© 2026 Jelle Vandebeeck</span>
             <span className="hidden md:inline">•</span>
             <span className="flex items-center gap-1">
-              <MapPin size={14} />
+              <MapPin size={14} aria-hidden="true" />
               Edegem
             </span>
             <span className="hidden md:inline">•</span>

@@ -1,5 +1,6 @@
 ---
-title: Soaring Book - Flight Day Management
+title: Soaring Book
+subtitle: Flight Day Management
 slug: soaring-book
 type: personal
 techStack: [iOS, iPadOS, Swift, Website, Ruby on Rails]

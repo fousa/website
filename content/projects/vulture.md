@@ -1,5 +1,6 @@
 ---
-title: Vulture - Flight Planning Tool
+title: Vulture
+subtitle: Flight Planning Tool
 slug: vulture
 type: personal
 techStack: [Swift, Mapbox, CoreData, iCloud, SkySight]

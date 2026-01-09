@@ -1,5 +1,6 @@
 ---
-title: GPX Reader - Offline GPX Viewer
+title: GPX Reader
+subtitle: Offline GPX Viewer
 slug: gpx-reader
 type: personal
 techStack: [iOS, iPadOS, macOS, Objective-C, Swift, Garmin]
