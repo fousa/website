@@ -4,7 +4,7 @@ subtitle: Your Digital Identity
 slug: itsme
 type: client-work
 client: itsme
-techStack: [iOS, Swift, SwiftUI]
+techStack: [iOS, Swift, SwiftUI, NextAuth]
 liveUrl: https://itsme-id.com
 startDate: 2022-01
 ---

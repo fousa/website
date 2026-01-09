@@ -3,7 +3,7 @@ title: Vulture
 subtitle: Flight Planning Tool
 slug: vulture
 type: personal
-techStack: [Swift, Mapbox, CoreData, iCloud, SkySight]
+techStack: [iOS, iPadOS, macOS, Website, Swift, Ruby]
 liveUrl: https://vulture.aero
 startDate: 2019-09
 endDate: Present

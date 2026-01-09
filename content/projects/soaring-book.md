@@ -3,7 +3,7 @@ title: Soaring Book
 subtitle: Flight Day Management
 slug: soaring-book
 type: personal
-techStack: [iOS, iPadOS, Swift, Website, Ruby on Rails]
+techStack: [iOS, iPadOS, Swift, Rubymotion, Website, Ruby on Rails]
 liveUrl: https://apps.apple.com/be/app/soaring-book-runway/id1422856598
 startDate: 2013-03
 endDate: Present
