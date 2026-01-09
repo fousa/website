@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Figtree, Outfit } from "next/font/google";
 import "./globals.css";
 
@@ -17,6 +17,11 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Jelle Vandebeeck - Full-Stack Developer",
   description: "Senior Full-Stack Developer specializing in React, Next.js, and modern web applications",
+  manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f97316",
 };
 
 export default function RootLayout({

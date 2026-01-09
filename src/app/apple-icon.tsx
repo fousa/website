@@ -2,17 +2,17 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 export const size = {
-  width: 32,
-  height: 32,
+  width: 180,
+  height: 180,
 }
 export const contentType = 'image/png'
 
-export default function Icon() {
+export default function AppleIcon() {
   return new ImageResponse(
     (
       <svg
-        width="32"
-        height="32"
+        width="180"
+        height="180"
         viewBox="0 0 1417.32 1417.32"
         style={{ background: 'transparent' }}
       >
