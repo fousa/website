@@ -110,13 +110,13 @@ export function getUnifiedTimeline(): {
     itemType: "project" as const,
   }));
 
-  // Separate birth, education, and work items
+  // Separate birth, education (including internship and holiday-work), and work items
   const birthItem = experienceItems.find((item) => item.type === "birth") || null;
   const educationItems = experienceItems.filter(
-    (item) => item.type === "education" || item.type === "internship"
+    (item) => item.type === "education" || item.type === "internship" || item.type === "holiday-work"
   );
   const workItems = experienceItems.filter(
-    (item) => item.type !== "birth" && item.type !== "education" && item.type !== "internship"
+    (item) => item.type !== "birth" && item.type !== "education" && item.type !== "internship" && item.type !== "holiday-work"
   );
 
   const workAndProjects = [...workItems, ...projectItems];

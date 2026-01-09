@@ -24,7 +24,7 @@ export default function Hero({ profile }: HeroProps) {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2"
+        className="absolute bottom-12 inset-x-0 flex justify-center"
         initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 1.2 }}

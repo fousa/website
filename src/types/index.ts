@@ -3,7 +3,7 @@ export interface TimelineItem {
   company: string;
   startDate: string;
   endDate?: string;
-  type: "full-time" | "freelance" | "internship" | "education" | "birth";
+  type: "full-time" | "freelance" | "internship" | "education" | "birth" | "holiday-work";
   logo?: string;
   image?: string;
   location?: string;

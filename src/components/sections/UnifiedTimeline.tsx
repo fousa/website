@@ -181,7 +181,7 @@ export default function UnifiedTimeline({
             {/* Education Section */}
             {educationItems.length > 0 && (
               <div className="mt-16 mb-8">
-                <h3 className="text-2xl font-bold text-foreground mb-6">
+                <h3 className="text-2xl font-bold text-foreground mb-10">
                   Education
                 </h3>
                 {educationItems.map((item, index) => {
@@ -242,9 +242,9 @@ export default function UnifiedTimeline({
               renderTimelineItem(item, index, workItems, false)
             )}
 
-            {/* Education Section */}
+            {/* Education Section - Split Layout */}
             {educationItems.length > 0 && (
-              <div className="mt-16 mb-12">
+              <div className="mt-16 mb-12 relative">
                 <motion.h3
                   initial={
                     prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
@@ -252,17 +252,25 @@ export default function UnifiedTimeline({
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
-                  className="text-center text-2xl font-bold text-foreground mb-8"
+                  className="text-center text-2xl font-bold text-foreground mb-20"
                 >
                   Education
                 </motion.h3>
+
+                {/* Center Line for Education */}
+                <div className="absolute left-1/2 top-16 bottom-0 w-0.5 bg-border -translate-x-1/2 z-0" />
+
                 {educationItems.map((item, index) => {
                   const itemYear = getYear(item.startDate);
                   const showYearLabel = index === 0 || itemYear !== getYear(educationItems[index - 1].startDate);
+                  // Education on the right, internship/holiday-work on the left
+                  const isEducation = item.itemType === "experience" && item.type === "education";
+                  const isLeft = !isEducation; // internship or holiday-work goes left
+
                   return (
-                    <div key={`desktop-education-${index}`} className="mb-8 relative">
+                    <div key={`desktop-education-${index}`} className="relative mb-10">
                       {showYearLabel && (
-                        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none" style={{ top: "-2rem", zIndex: 20 }}>
+                        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none" style={{ top: "-2.5rem", zIndex: 20 }}>
                           <motion.div
                             initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -274,10 +282,49 @@ export default function UnifiedTimeline({
                           </motion.div>
                         </div>
                       )}
-                      <div className="flex justify-center">
-                        <div className="w-full max-w-xl">
-                          <TimelineCard item={item} index={index} />
+
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "1fr 10% 1fr",
+                          gap: 0,
+                          position: "relative",
+                        }}
+                      >
+                        {isLeft ? (
+                          <div className="pr-8">
+                            <TimelineCard item={item} index={index} />
+                          </div>
+                        ) : (
+                          <div />
+                        )}
+
+                        <div className="relative">
+                          <motion.div
+                            initial={prefersReducedMotion ? { scaleX: 1 } : { scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            viewport={{ once: true, margin: "-100px" }}
+                            transition={{
+                              duration: prefersReducedMotion ? 0 : 0.5,
+                              delay: prefersReducedMotion ? 0 : index * 0.1,
+                            }}
+                            className="absolute h-0.5 bg-border"
+                            style={{
+                              top: "2rem",
+                              left: isLeft ? "0%" : "50%",
+                              right: isLeft ? "50%" : "0%",
+                              transformOrigin: isLeft ? "left" : "right",
+                            }}
+                          />
                         </div>
+
+                        {!isLeft ? (
+                          <div className="pl-8">
+                            <TimelineCard item={item} index={index} />
+                          </div>
+                        ) : (
+                          <div />
+                        )}
                       </div>
                     </div>
                   );
