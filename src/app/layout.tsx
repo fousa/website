@@ -15,8 +15,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Jelle Vandebeeck - Full-Stack Developer",
-  description: "Senior Full-Stack Developer specializing in React, Next.js, and modern web applications",
+  title: "Jelle Vandebeeck - I make iOS apps and Rails backends",
+  description: "Senior Developer specializing in Ruby on Rails and iOS applications",
   manifest: "/site.webmanifest",
 };
 
