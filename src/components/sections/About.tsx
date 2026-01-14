@@ -53,9 +53,9 @@ export default function About({ profile }: AboutProps) {
             </p>
           </motion.div>
 
-          {/* Social Links */}
+          {/* Social Links - Hidden on mobile, shown on desktop */}
           <motion.div
-            className="flex gap-4 pt-4 flex-wrap justify-center"
+            className="hidden md:flex gap-4 pt-4 flex-wrap justify-center"
             initial={fadeInUp.initial}
             animate={fadeInUp.animate}
             transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.7 }}

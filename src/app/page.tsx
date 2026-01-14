@@ -1,6 +1,7 @@
 import { getProfile, getUnifiedTimeline } from "@/lib/markdown";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
+import MobileSocialLinks from "@/components/sections/MobileSocialLinks";
 import UnifiedTimeline from "@/components/sections/UnifiedTimeline";
 import Footer from "@/components/sections/Footer";
 
@@ -20,6 +21,7 @@ export default function Home() {
     <main className="snap-y snap-mandatory overflow-y-auto h-screen overscroll-none">
       <Hero profile={profile} />
       <About profile={profile} />
+      <MobileSocialLinks profile={profile} />
       <UnifiedTimeline
         workItems={timeline.work}
         educationItems={timeline.education}

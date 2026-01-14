@@ -160,7 +160,7 @@ function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
         }`}
         style={{
           borderBottomColor: isExpanded ? 'transparent' : undefined,
-          backgroundColor: isExpanded ? '#ffffff' : undefined,
+          backgroundColor: isExpanded ? 'var(--background)' : undefined,
           borderRadius: isExpanded ? '0.5rem 0.5rem 0 0' : undefined,
         }}
         onMouseEnter={handleMouseEnter}
@@ -175,7 +175,7 @@ function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
         aria-label={`${primaryTitle}${secondaryText ? `, ${secondaryText}` : ""}. ${isTouchDevice ? 'Tap' : 'Click'} to ${isExpanded ? "collapse" : "expand"} details.`}
       >
         <div className="p-6" style={{
-          backgroundColor: isExpanded ? '#ffffff' : undefined,
+          backgroundColor: isExpanded ? 'var(--background)' : undefined,
           borderRadius: isExpanded ? '0.5rem 0.5rem 0 0' : undefined,
         }}>
           {/* Header - Always Visible */}
@@ -241,7 +241,7 @@ function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
               exit={prefersReducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: 'var(--background)',
                 boxShadow: isMobile
                   ? '0 4px 12px -2px rgba(0, 0, 0, 0.08)'
                   : '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
