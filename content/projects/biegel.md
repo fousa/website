@@ -1,5 +1,5 @@
 ---
-title: Riesel
+title: Biegel.be
 subtitle: Limburg Dialect Translator
 slug: riesel
 type: personal

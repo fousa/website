@@ -1,5 +1,5 @@
 ---
-title: Cubels
+title: Gijbels
 subtitle: Construction Marketing Site
 slug: cubels
 type: personal

@@ -1,5 +1,5 @@
 ---
-title: Jama
+title: 1am
 subtitle: Nespresso Blend Selector
 slug: jama
 type: personal

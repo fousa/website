@@ -1,5 +1,5 @@
 ---
-title: 2eSik
+title: Besix
 subtitle: Construction Progress Tracker
 slug: 2esik
 type: client-work

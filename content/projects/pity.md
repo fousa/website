@@ -1,5 +1,5 @@
 ---
-title: Pitv
+title: Pity
 subtitle: Yammer Notification Tool
 slug: ditv
 type: personal
