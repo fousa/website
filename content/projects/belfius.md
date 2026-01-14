@@ -6,7 +6,7 @@ type: client-work
 employer: icapps
 client: Belfius
 techStack: [iPadOS, Objective-C]
-liveUrl: 
+liveUrl:
 startDate: 2015-02
 endDate: 2015-09
 ---

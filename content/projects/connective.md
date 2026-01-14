@@ -6,7 +6,7 @@ type: client-work
 employer: icapps
 client: Connective
 techStack: [iOS, Objective-C, Jenkins]
-liveUrl: 
+liveUrl:
 startDate: 2015-03
 endDate: 2015-09
 ---

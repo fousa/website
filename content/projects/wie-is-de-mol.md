@@ -6,7 +6,7 @@ type: client-work
 employer: 10to1
 client: AVRO
 techStack: [iOS, Objective-C]
-liveUrl: 
+liveUrl:
 startDate: 2013-09
 endDate: 2014-03
 ---

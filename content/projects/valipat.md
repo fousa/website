@@ -9,6 +9,7 @@ techStack: [Ruby on Rails, Website]
 liveUrl: 
 startDate: 2009-11
 endDate: 2010-03
+featured: true
 ---
 
 An administrative website commissioned by Beligted for IP Attorneys. Behavior-driven development made this project challenging but rewarding.

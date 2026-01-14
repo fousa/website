@@ -7,6 +7,7 @@ client: itsme
 techStack: [iOS, Swift, SwiftUI, NextAuth]
 liveUrl: https://itsme-id.com
 startDate: 2022-01
+featured: true
 ---
 
 One of Belgium's most used applications—a digital identity app for iPhone that lets you authenticate, share data, and sign documents securely.

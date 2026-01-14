@@ -7,6 +7,7 @@ techStack: [iOS, iPadOS, macOS, Website, Swift, Ruby]
 liveUrl: https://vulture.aero
 startDate: 2019-09
 endDate: Present
+featured: true
 ---
 
 A flight planning and analysis app for glider pilots across all Apple devices. 

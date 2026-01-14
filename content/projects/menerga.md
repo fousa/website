@@ -9,6 +9,7 @@ techStack: [Ruby on Rails, Website]
 liveUrl: 
 startDate: 2014-03
 endDate: 2015-09
+featured: true
 ---
 
 A website commissioned by 10to1 for planning energy industry assignments. Connected with external services for up-to-date stock overviews.

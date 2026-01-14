@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import TimelineCard from "@/components/ui/TimelineCard";
 import type { UnifiedTimelineItem } from "@/types";
 
@@ -16,6 +17,36 @@ export default function UnifiedTimeline({
   birthItem,
 }: UnifiedTimelineProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [featuredOnly, setFeaturedOnly] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  // Detect when toggle becomes sticky
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSticky(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
+  // Filter work items based on featured toggle
+  const filteredWorkItems = useMemo(() => {
+    if (!featuredOnly) return workItems;
+    return workItems.filter((item) => {
+      // Experience items always show
+      if (item.itemType === "experience") return true;
+      // Projects filter by featured flag (default to false if not set)
+      return item.featured === true;
+    });
+  }, [workItems, featuredOnly]);
 
   if (!workItems || workItems.length === 0) {
     return (
@@ -44,9 +75,20 @@ export default function UnifiedTimeline({
       index === items.length - 1 || itemYear !== getYear(items[index + 1].startDate);
     const yearLabel = itemYear.toString();
 
+    // Use slug for projects, title for experiences as unique key
+    const itemKey = isProject ? item.slug : `exp-${item.title}`;
+
     if (isMobile) {
       return (
-        <div key={`mobile-${item.itemType}-${index}`} className="mb-3">
+        <motion.div
+          key={`mobile-${itemKey}`}
+          layout
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+          className="mb-3"
+        >
           <TimelineCard item={item} index={index} />
           {isLastItemOfYear && (
             <motion.div
@@ -68,13 +110,21 @@ export default function UnifiedTimeline({
               </div>
             </motion.div>
           )}
-        </div>
+        </motion.div>
       );
     }
 
     // Desktop
     return (
-      <div key={`desktop-${item.itemType}-${index}`} className="relative mb-6">
+      <motion.div
+        key={`desktop-${itemKey}`}
+        layout
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+        className="relative mb-6"
+      >
         <div
           style={{
             display: "grid",
@@ -139,7 +189,7 @@ export default function UnifiedTimeline({
             </motion.div>
           </div>
         )}
-      </div>
+      </motion.div>
     );
   };
 
@@ -162,6 +212,42 @@ export default function UnifiedTimeline({
           </p>
         </motion.div>
 
+        {/* Sentinel for sticky detection */}
+        <div ref={sentinelRef} className="-mt-10" />
+
+        {/* Sticky Featured Toggle */}
+        <div className="sticky top-4 z-[60] flex justify-center mb-12">
+          <motion.div
+            animate={{ scale: [1, 1.03, 1] }}
+            transition={{ duration: 0.3 }}
+            key={featuredOnly ? "featured" : "all"}
+            className={`inline-flex items-center gap-3 px-5 py-2.5 rounded-full border transition-all duration-300 ${
+              isSticky
+                ? "bg-background/80 backdrop-blur-md border-border shadow-lg"
+                : "bg-foreground/5 border-transparent"
+            }`}
+          >
+            <span className="text-sm font-medium text-foreground-secondary">
+              {featuredOnly ? "Showing highlights only" : "Showing all projects"}
+            </span>
+            <button
+              onClick={() => setFeaturedOnly(!featuredOnly)}
+              className={`relative w-14 h-8 rounded-full transition-colors duration-300 ${
+                featuredOnly
+                  ? "bg-accent"
+                  : "bg-border"
+              }`}
+              aria-label={featuredOnly ? "Show all projects" : "Show featured projects only"}
+            >
+              <span
+                className={`absolute top-1 left-1 w-6 h-6 bg-background rounded-full shadow-md transition-transform duration-300 ease-out ${
+                  featuredOnly ? "translate-x-6" : "translate-x-0"
+                }`}
+              />
+            </button>
+          </motion.div>
+        </div>
+
         {/* Timeline Layout */}
         <div className="relative">
           {/* Center Line - Desktop Only */}
@@ -169,9 +255,11 @@ export default function UnifiedTimeline({
 
           {/* Mobile: Simple vertical list */}
           <div className="lg:hidden">
-            {workItems.map((item, index) =>
-              renderTimelineItem(item, index, workItems, true)
-            )}
+            <AnimatePresence mode="popLayout">
+              {filteredWorkItems.map((item, index) =>
+                renderTimelineItem(item, index, filteredWorkItems, true)
+              )}
+            </AnimatePresence>
 
             {/* Education Section */}
             {educationItems.length > 0 && (
@@ -235,9 +323,11 @@ export default function UnifiedTimeline({
 
           {/* Desktop: Projects left, Experience right */}
           <div className="hidden lg:block relative">
-            {workItems.map((item, index) =>
-              renderTimelineItem(item, index, workItems, false)
-            )}
+            <AnimatePresence mode="popLayout">
+              {filteredWorkItems.map((item, index) =>
+                renderTimelineItem(item, index, filteredWorkItems, false)
+              )}
+            </AnimatePresence>
 
             {/* Education Section - Split Layout */}
             {educationItems.length > 0 && (

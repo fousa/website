@@ -8,6 +8,7 @@ client: Signify
 techStack: [iPadOS, Swift, Bluetooth]
 startDate: 2016-09
 endDate: 2017-05
+featured: true
 ---
 
 An iPad app built for Apple Store demonstrations of Philips Hue lighting.

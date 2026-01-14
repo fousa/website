@@ -7,6 +7,7 @@ techStack: [iOS, iPadOS, Swift, Rubymotion, Website, Ruby on Rails]
 liveUrl: https://apps.apple.com/be/app/soaring-book-runway/id1422856598
 startDate: 2013-03
 endDate: Present
+featured: true
 ---
 
 An iPad app for managing an entire flying day at gliding clubs.

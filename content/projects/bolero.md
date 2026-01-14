@@ -9,6 +9,7 @@ techStack: [iOS, iPadOS, watchOS, Objective-C]
 liveUrl: https://bolero.be
 startDate: 2014-09
 endDate: 2015-09
+featured: true
 ---
 
 An open-source React component library focused on accessibility and developer experience. Includes 30+ components with full TypeScript support, comprehensive documentation, and interactive Storybook examples.

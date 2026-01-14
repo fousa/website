@@ -9,6 +9,7 @@ techStack: [iOS, iPadOS, API, Ruby, Objective-C]
 liveUrl: 
 startDate: 2011-03
 endDate: Present
+featured: true
 ---
 
 An iOS app that makes RASP weather charts available on mobile. Built with my own backend pulling data from worldwide sources—essential for task planning.

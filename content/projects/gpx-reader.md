@@ -7,6 +7,7 @@ techStack: [iOS, iPadOS, macOS, Objective-C, Swift, Garmin]
 liveUrl: https://apps.apple.com/us/app/gpx-reader/id543308129
 startDate: 2012-03
 endDate: 2019-10
+featured: true
 ---
 
 An iOS and macOS app for viewing bike and run tracks offline without relying on online services.

@@ -8,6 +8,7 @@ client: Telenet
 techStack: [Swift, FairPlay, AirPlay]
 startDate: 2018-02
 endDate: 2021-02
+featured: true
 ---
 
 A media application for iOS and tvOS built for Yugo (now Telenet Flow).

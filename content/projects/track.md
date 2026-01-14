@@ -6,6 +6,7 @@ type: personal
 techStack: [iOS, iPadOS, macOS, Swift]
 startDate: 2019-10
 endDate: 2022-03
+featured: true
 ---
 
 An iOS and macOS app that shows workout statistics on a map with elevation overlays.
