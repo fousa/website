@@ -144,7 +144,7 @@ function TimelineCard({ item, index }: TimelineCardProps) {
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.05 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.02 }}
       className="group"
       style={{
         position: 'relative',
@@ -236,10 +236,10 @@ function TimelineCard({ item, index }: TimelineCardProps) {
               boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
             }}
           >
-            <div className="px-6 pb-3 pt-1">
+            <div className="px-6 pb-6 pt-0">
               {/* Meta Info - only show if there's location or techStack */}
               {((item.itemType === "experience" && item.location) || (item.itemType === "project" && item.techStack)) && (
-                <div className="flex flex-wrap gap-2 mb-3 text-sm text-foreground-muted border-t border-b border-border py-3">
+                <div className="flex flex-wrap gap-2 mb-0 text-sm text-foreground-muted border-t border-b border-border py-3">
                   {item.itemType === "experience" && item.location && (
                     <div className="flex items-center gap-1">
                       <MapPin size={12} aria-hidden="true" />
@@ -268,7 +268,7 @@ function TimelineCard({ item, index }: TimelineCardProps) {
 
               {/* Description for Projects */}
               {item.itemType === "project" && item.description && (
-                <p className="text-foreground-secondary mb-1.5">
+                <p className="text-foreground-secondary mb-3">
                   {item.description}
                 </p>
               )}
@@ -296,7 +296,7 @@ function TimelineCard({ item, index }: TimelineCardProps) {
 
               {/* Links */}
               {item.itemType === "project" && (item.liveUrl || item.repoUrl) && (
-                <div className="flex gap-2 pt-3 border-t border-border">
+                <div className="flex gap-2 mt-6 pt-4 border-t border-border">
                   {item.liveUrl && (
                     <a
                       href={item.liveUrl}
