@@ -89,7 +89,7 @@ export default function UnifiedTimeline({
           transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
           className="mb-3"
         >
-          <TimelineCard item={item} index={index} />
+          <TimelineCard item={item} index={index} isMobile={true} />
           {isLastItemOfYear && (
             <motion.div
               initial={
@@ -135,7 +135,7 @@ export default function UnifiedTimeline({
         >
           {isProject ? (
             <div className="pr-8">
-              <TimelineCard item={item} index={index} />
+              <TimelineCard item={item} index={index} isMobile={false} />
             </div>
           ) : (
             <div />
@@ -162,7 +162,7 @@ export default function UnifiedTimeline({
 
           {!isProject ? (
             <div className="pl-8">
-              <TimelineCard item={item} index={index} />
+              <TimelineCard item={item} index={index} isMobile={false} />
             </div>
           ) : (
             <div />
@@ -273,7 +273,7 @@ export default function UnifiedTimeline({
                   return (
                     <div key={`mobile-education-${index}`} className="mb-2">
                       <div className="scale-95 origin-left">
-                        <TimelineCard item={item} index={index} />
+                        <TimelineCard item={item} index={index} isMobile={true} />
                       </div>
                       {isLastItemOfYear && (
                         <motion.div
@@ -297,7 +297,7 @@ export default function UnifiedTimeline({
             {/* Birth Section */}
             {birthItem && (
               <div className="mt-24">
-                <TimelineCard item={birthItem} index={0} />
+                <TimelineCard item={birthItem} index={0} isMobile={true} />
                 {/* Year Label - After the card */}
                 <motion.div
                   initial={
@@ -366,7 +366,7 @@ export default function UnifiedTimeline({
                       >
                         {isLeft ? (
                           <div className="pr-8">
-                            <TimelineCard item={item} index={index} />
+                            <TimelineCard item={item} index={index} isMobile={false} />
                           </div>
                         ) : (
                           <div />
@@ -393,7 +393,7 @@ export default function UnifiedTimeline({
 
                         {!isLeft ? (
                           <div className="pl-8">
-                            <TimelineCard item={item} index={index} />
+                            <TimelineCard item={item} index={index} isMobile={false} />
                           </div>
                         ) : (
                           <div />
@@ -422,7 +422,7 @@ export default function UnifiedTimeline({
             {/* Birth Section */}
             {birthItem && (
               <div className="mt-24">
-                <TimelineCard item={birthItem} index={0} />
+                <TimelineCard item={birthItem} index={0} isMobile={false} />
                 {/* Year Label - After the card */}
                 <div className="flex justify-center mt-4 relative z-20">
                   <motion.div

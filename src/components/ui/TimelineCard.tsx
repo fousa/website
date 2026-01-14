@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useId, useCallback, useMemo, memo } from "react";
 import Image from "next/image";
 import { MapPin, ExternalLink, Github, Briefcase, GraduationCap, Cat } from "lucide-react";
@@ -9,6 +9,7 @@ import type { UnifiedTimelineItem } from "@/types";
 interface TimelineCardProps {
   item: UnifiedTimelineItem;
   index: number;
+  isMobile?: boolean;
 }
 
 // Global touch detection (runs once)
@@ -20,7 +21,7 @@ const getIsTouchDevice = () => {
   return isTouchDeviceGlobal ?? false;
 };
 
-function TimelineCard({ item, index }: TimelineCardProps) {
+function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -148,7 +149,7 @@ function TimelineCard({ item, index }: TimelineCardProps) {
       className="group"
       style={{
         position: 'relative',
-        zIndex: isExpanded ? 50 : 1,
+        zIndex: isExpanded && !isMobile ? 50 : 1,
       }}
     >
       <div
@@ -223,111 +224,122 @@ function TimelineCard({ item, index }: TimelineCardProps) {
           </div>
         </div>
 
-        {/* Expandable Content - Absolute positioned as sibling */}
-        {isExpanded && (
-          <div
-            id={expandedContentId}
-            role="region"
-            aria-label={`Details for ${primaryTitle}`}
-            className="absolute left-[-1px] right-[-1px] top-full border-l border-r border-b border-accent rounded-b-lg z-50"
-            style={{
-              animation: prefersReducedMotion ? 'none' : 'fadeIn 0.2s ease-out',
-              backgroundColor: '#ffffff',
-              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <div className="px-6 pb-6 pt-0">
-              {/* Meta Info - only show if there's location or techStack */}
-              {((item.itemType === "experience" && item.location) || (item.itemType === "project" && item.techStack)) && (
-                <div className="flex flex-wrap gap-2 mb-0 text-sm text-foreground-muted border-t border-b border-border py-3">
-                  {item.itemType === "experience" && item.location && (
-                    <div className="flex items-center gap-1">
-                      <MapPin size={12} aria-hidden="true" />
-                      <span>{item.location}</span>
-                    </div>
-                  )}
-                  {item.itemType === "project" && item.techStack && (
-                    <div className="flex flex-wrap gap-1">
-                      {item.techStack.slice(0, 3).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-1.5 py-0.5 bg-background-tertiary rounded text-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {item.techStack.length > 3 && (
-                        <span className="px-1.5 py-0.5 text-xs">
-                          +{item.techStack.length - 3} more
-                        </span>
-                      )}
-                    </div>
-                  )}
+        {/* Expandable Content - Absolute on desktop, animated relative on mobile */}
+        <AnimatePresence initial={false}>
+          {isExpanded && (
+            <motion.div
+              id={expandedContentId}
+              role="region"
+              aria-label={`Details for ${primaryTitle}`}
+              className={`border-l border-r border-b border-accent rounded-b-lg overflow-hidden ${
+                isMobile
+                  ? 'relative mx-[-1px] mt-0'
+                  : 'absolute left-[-1px] right-[-1px] top-full z-50'
+              }`}
+              initial={prefersReducedMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+              style={{
+                backgroundColor: '#ffffff',
+                boxShadow: isMobile
+                  ? '0 4px 12px -2px rgba(0, 0, 0, 0.08)'
+                  : '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <div className="px-6 pb-6 pt-0">
+                {/* Meta Info - only show if there's location or techStack */}
+                {((item.itemType === "experience" && item.location) || (item.itemType === "project" && item.techStack)) && (
+                  <div className="flex flex-wrap gap-2 mb-0 text-sm text-foreground-muted border-t border-b border-border py-3">
+                    {item.itemType === "experience" && item.location && (
+                      <div className="flex items-center gap-1">
+                        <MapPin size={12} aria-hidden="true" />
+                        <span>{item.location}</span>
+                      </div>
+                    )}
+                    {item.itemType === "project" && item.techStack && (
+                      <div className="flex flex-wrap gap-1">
+                        {item.techStack.slice(0, 3).map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-1.5 py-0.5 bg-background-tertiary rounded text-xs"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {item.techStack.length > 3 && (
+                          <span className="px-1.5 py-0.5 text-xs">
+                            +{item.techStack.length - 3} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Description for Projects */}
+                {item.itemType === "project" && item.description && (
+                  <p className="text-foreground-secondary mb-3">
+                    {item.description}
+                  </p>
+                )}
+
+                {/* Content */}
+                <div className="prose prose-invert prose-sm max-w-none">
+                  <p className="text-foreground-secondary leading-relaxed whitespace-pre-line">
+                    {item.content}
+                  </p>
                 </div>
-              )}
 
-              {/* Description for Projects */}
-              {item.itemType === "project" && item.description && (
-                <p className="text-foreground-secondary mb-3">
-                  {item.description}
-                </p>
-              )}
+                {/* Tech Stack (Full) */}
+                {item.itemType === "project" && item.techStack && item.techStack.length > 3 && (
+                  <div className="flex flex-wrap gap-1 mt-3">
+                    {item.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-1.5 py-0.5 bg-background-tertiary rounded text-xs text-foreground-secondary"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
-              {/* Content */}
-              <div className="prose prose-invert prose-sm max-w-none">
-                <p className="text-foreground-secondary leading-relaxed whitespace-pre-line">
-                  {item.content}
-                </p>
+                {/* Links */}
+                {item.itemType === "project" && (item.liveUrl || item.repoUrl) && (
+                  <div className="flex gap-2 mt-6 pt-4 border-t border-border">
+                    {item.liveUrl && (
+                      <a
+                        href={item.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
+                        onClick={handleLinkClick}
+                        aria-label={`Visit live site for ${item.title}`}
+                      >
+                        <ExternalLink size={16} aria-hidden="true" />
+                        <span className="text-sm">Live Site</span>
+                      </a>
+                    )}
+                    {item.repoUrl && (
+                      <a
+                        href={item.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
+                        onClick={handleLinkClick}
+                        aria-label={`View source code for ${item.title}`}
+                      >
+                        <Github size={16} aria-hidden="true" />
+                        <span className="text-sm">Source Code</span>
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
-
-              {/* Tech Stack (Full) */}
-              {item.itemType === "project" && item.techStack && item.techStack.length > 3 && (
-                <div className="flex flex-wrap gap-1 mt-3">
-                  {item.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-1.5 py-0.5 bg-background-tertiary rounded text-xs text-foreground-secondary"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Links */}
-              {item.itemType === "project" && (item.liveUrl || item.repoUrl) && (
-                <div className="flex gap-2 mt-6 pt-4 border-t border-border">
-                  {item.liveUrl && (
-                    <a
-                      href={item.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
-                      onClick={handleLinkClick}
-                      aria-label={`Visit live site for ${item.title}`}
-                    >
-                      <ExternalLink size={16} aria-hidden="true" />
-                      <span className="text-sm">Live Site</span>
-                    </a>
-                  )}
-                  {item.repoUrl && (
-                    <a
-                      href={item.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors"
-                      onClick={handleLinkClick}
-                      aria-label={`View source code for ${item.title}`}
-                    >
-                      <Github size={16} aria-hidden="true" />
-                      <span className="text-sm">Source Code</span>
-                    </a>
-                  )}
-                </div>
-              )}
-              </div>
-            </div>
+            </motion.div>
           )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );
