@@ -103,9 +103,9 @@ export default function About({ profile }: AboutProps) {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Hidden on mobile to prevent overlap */}
       <motion.div
-        className="absolute bottom-12 inset-x-0 flex justify-center"
+        className="absolute bottom-12 inset-x-0 hidden md:flex justify-center"
         initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.9 }}
