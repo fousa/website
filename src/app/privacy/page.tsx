@@ -94,7 +94,7 @@ export default function PrivacyPage() {
                         </p>
                         <ul className="list-disc list-inside text-foreground-secondary space-y-2">
                             <li>Understand which pages are most popular</li>
-                            <li>Improve the website's content and user experience</li>
+                            <li>Improve the website&apos;s content and user experience</li>
                             <li>Identify technical issues</li>
                             <li>Track overall visitor trends (e.g., daily/monthly visitors)</li>
                         </ul>
@@ -149,7 +149,7 @@ export default function PrivacyPage() {
                         </h2>
                         <p className="text-foreground-secondary leading-relaxed">
                             Google Analytics data is retained for 26 months by default. After this period, the data is automatically deleted.
-                            You can clear your cookie consent at any time by clearing your browser's local storage.
+                            You can clear your cookie consent at any time by clearing your browser&apos;s local storage.
                         </p>
                     </section>
 
@@ -159,7 +159,7 @@ export default function PrivacyPage() {
                         </h2>
                         <p className="text-foreground-secondary leading-relaxed">
                             I may update this privacy policy from time to time. Any changes will be posted on this page with an updated
-                            "Last updated" date.
+                            &quot;Last updated&quot; date.
                         </p>
                     </section>
 
