@@ -153,11 +153,10 @@ function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
       }}
     >
       <div
-        className={`relative border cursor-pointer overflow-visible transition-all duration-200 ease-out ${
-          isExpanded
+        className={`relative border cursor-pointer overflow-visible transition-all duration-200 ease-out ${isExpanded
             ? 'border-accent bg-background-secondary'
             : 'border-border rounded-lg bg-background-secondary hover:border-accent/50 hover:shadow-md'
-        }`}
+          }`}
         style={{
           borderBottomColor: isExpanded ? 'transparent' : undefined,
           backgroundColor: isExpanded ? 'var(--background)' : undefined,
@@ -231,11 +230,10 @@ function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
               id={expandedContentId}
               role="region"
               aria-label={`Details for ${primaryTitle}`}
-              className={`border-l border-r border-b border-accent rounded-b-lg overflow-hidden ${
-                isMobile
+              className={`border-l border-r border-b border-accent rounded-b-lg overflow-hidden ${isMobile
                   ? 'relative mx-[-1px] mt-0'
                   : 'absolute left-[-1px] right-[-1px] top-full z-50'
-              }`}
+                }`}
               initial={prefersReducedMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
               animate={prefersReducedMotion ? { opacity: 1 } : { height: 'auto', opacity: 1 }}
               exit={prefersReducedMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
@@ -318,7 +316,7 @@ function TimelineCard({ item, index, isMobile = false }: TimelineCardProps) {
                         aria-label={`Visit live site for ${item.title}`}
                       >
                         <ExternalLink size={16} aria-hidden="true" />
-                        <span className="text-sm">Live Site</span>
+                        <span className="text-sm">Visit Site</span>
                       </a>
                     )}
                     {item.repoUrl && (

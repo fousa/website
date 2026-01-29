@@ -14,38 +14,38 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   // Simplified entrance animation for mobile
   const entranceAnimation = shouldReduceMotion
     ? {
-        initial: { opacity: 0 },
-        whileInView: { opacity: 1 },
-        transition: { duration: 0.3 },
-      }
+      initial: { opacity: 0 },
+      whileInView: { opacity: 1 },
+      transition: { duration: 0.3 },
+    }
     : {
-        initial: { opacity: 0, y: 30 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.5 },
-      };
+      initial: { opacity: 0, y: 30 },
+      whileInView: { opacity: 1, y: 0 },
+      transition: { duration: 0.5 },
+    };
 
   // Disable hover lift effect on mobile/touch devices
   const hoverAnimation =
     !isMobile && !shouldReduceMotion
       ? {
-          y: -8,
-          boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.8)",
-          borderColor: "var(--border-hover)",
-        }
+        y: -8,
+        boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.8)",
+        borderColor: "var(--border-hover)",
+      }
       : {};
 
   // Disable featured badge animation on mobile
   const featuredBadgeAnimation = shouldReduceMotion
     ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        transition: { duration: 0.3 },
-      }
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { duration: 0.3 },
+    }
     : {
-        initial: { scale: 0, rotate: -180 },
-        animate: { scale: 1, rotate: 0 },
-        transition: { delay: 0.2, type: "spring" as const, stiffness: 200 },
-      };
+      initial: { scale: 0, rotate: -180 },
+      animate: { scale: 1, rotate: 0 },
+      transition: { delay: 0.2, type: "spring" as const, stiffness: 200 },
+    };
 
   return (
     <motion.div
@@ -141,7 +141,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                 />
               </svg>
-              Live
+              Visit Site
             </a>
           )}
           {project.repoUrl && (
