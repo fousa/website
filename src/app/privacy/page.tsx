@@ -48,40 +48,30 @@ export default function PrivacyPage() {
                             Information I Collect
                         </h2>
                         <p className="text-foreground-secondary leading-relaxed mb-4">
-                            I collect minimal information about your visit to understand how people use my website:
+                            I collect minimal, anonymous information about your visit to understand how people use my website:
                         </p>
                         <ul className="list-disc list-inside text-foreground-secondary space-y-2 mb-4">
-                            <li>Pages you visit and time spent on each page</li>
-                            <li>Your approximate location (country/city level)</li>
+                            <li>Pages you visit</li>
+                            <li>Your approximate location (country level)</li>
                             <li>Device type and browser information</li>
                             <li>Referring website (where you came from)</li>
                         </ul>
                         <p className="text-foreground-secondary leading-relaxed">
                             I do <strong>not</strong> collect personally identifiable information such as your name, email address,
-                            or precise location unless you explicitly provide it (e.g., through a contact form).
+                            or precise location unless you explicitly provide it.
                         </p>
                     </section>
 
                     <section className="mb-12">
                         <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-                            Cookies and Tracking
+                            Analytics
                         </h2>
                         <p className="text-foreground-secondary leading-relaxed mb-4">
-                            I use Google Analytics to understand how visitors interact with my website. Google Analytics uses cookies
-                            to collect anonymous information about your visit.
+                            This website uses Vercel Analytics to collect anonymous usage data. Vercel Analytics is a privacy-friendly
+                            analytics service that does not use cookies and does not track visitors across websites.
                         </p>
-                        <div className="bg-background-secondary border border-border rounded-lg p-6 mb-4">
-                            <h3 className="font-heading text-xl font-bold text-foreground mb-3">
-                                What are cookies?
-                            </h3>
-                            <p className="text-foreground-secondary leading-relaxed">
-                                Cookies are small text files stored on your device that help websites remember information about your visit.
-                                They do not contain personal information and cannot harm your device.
-                            </p>
-                        </div>
                         <p className="text-foreground-secondary leading-relaxed mb-4">
-                            <strong>You have full control:</strong> You can accept or decline cookies through the cookie consent banner.
-                            If you decline, no tracking cookies will be set, and Google Analytics will not be loaded.
+                            No cookies are set by this website for analytics purposes, and no personally identifiable information is collected.
                         </p>
                     </section>
 
@@ -90,7 +80,7 @@ export default function PrivacyPage() {
                             How I Use Your Information
                         </h2>
                         <p className="text-foreground-secondary leading-relaxed mb-4">
-                            The information collected through Google Analytics is used solely to:
+                            The anonymous information collected is used solely to:
                         </p>
                         <ul className="list-disc list-inside text-foreground-secondary space-y-2">
                             <li>Understand which pages are most popular</li>
@@ -109,20 +99,20 @@ export default function PrivacyPage() {
                         </p>
                         <div className="bg-background-secondary border border-border rounded-lg p-6">
                             <h3 className="font-heading text-xl font-bold text-foreground mb-2">
-                                Google Analytics
+                                Vercel Analytics
                             </h3>
                             <p className="text-foreground-secondary leading-relaxed mb-2">
-                                Google Analytics is a web analytics service provided by Google LLC. It helps me understand how visitors
-                                use my website.
+                                Vercel Analytics is a privacy-friendly web analytics service provided by Vercel Inc. It collects anonymous
+                                usage data without using cookies or tracking visitors across websites.
                             </p>
                             <p className="text-foreground-secondary leading-relaxed">
                                 Learn more: <a
-                                    href="https://policies.google.com/privacy"
+                                    href="https://vercel.com/docs/analytics/privacy-policy"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-accent hover:text-accent-hover underline"
                                 >
-                                    Google Privacy Policy
+                                    Vercel Analytics Privacy Policy
                                 </a>
                             </p>
                         </div>
@@ -139,18 +129,7 @@ export default function PrivacyPage() {
                             <li><strong>Right to access:</strong> You can request information about the data I hold about you</li>
                             <li><strong>Right to erasure:</strong> You can request that I delete your data</li>
                             <li><strong>Right to object:</strong> You can object to the processing of your data</li>
-                            <li><strong>Right to withdraw consent:</strong> You can change your cookie preferences at any time</li>
                         </ul>
-                    </section>
-
-                    <section className="mb-12">
-                        <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-                            Data Retention
-                        </h2>
-                        <p className="text-foreground-secondary leading-relaxed">
-                            Google Analytics data is retained for 26 months by default. After this period, the data is automatically deleted.
-                            You can clear your cookie consent at any time by clearing your browser&apos;s local storage.
-                        </p>
                     </section>
 
                     <section className="mb-12">

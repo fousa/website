@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Outfit } from "next/font/google";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import CookieConsent from "@/components/CookieConsent";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -34,9 +33,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${figtree.variable} ${outfit.variable}`}>
       <body>
-        <GoogleAnalytics />
         {children}
-        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );
